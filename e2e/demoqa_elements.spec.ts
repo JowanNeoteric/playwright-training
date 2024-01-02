@@ -19,17 +19,47 @@ test.describe("Demo QA - elements page", () => {
     await expect(textBox).toHaveText("Text Box");
     await textBox.click();
     await expect(page.locator("#userName-wrapper")).toHaveText("Full Name");
-    await expect(page.locator("#userName-wrapper div").nth(1)).toHaveAttribute(
-      "id",
-      "userName"
-    );
+    await expect(page.getByPlaceholder('Full Name')).toBeEditable();
+    await expect(page.getByPlaceholder('Full Name')).toHaveAttribute('type', "text")
     await expect(page.locator("#userEmail-wrapper")).toHaveText("Email");
+    await expect(page.getByPlaceholder('name@example.com')).toBeEditable();
+    await expect(page.getByPlaceholder('name@example.com')).toHaveAttribute('type', "email")
     await expect(page.locator("#currentAddress-wrapper")).toHaveText(
       "Current Address"
     );
+    await expect(page.getByPlaceholder('Current Address')).toBeEditable();
+    await expect(page.getByPlaceholder('Current Address')).toHaveAttribute('id', "currentAddress")
     await expect(page.locator("#permanentAddress-wrapper")).toHaveText(
       "Permanent Address"
     );
+    await expect(page.locator('.btn-primary')).toHaveText('Submit');
+  });
+
+  test("opens Text Box and fills with test data", async ({ page }) => {
+    const textBox = page.getByText("Text Box");
+    const fullNameInput = page.getByPlaceholder('Full Name');
+    const userEmailInput = page.getByPlaceholder('name@example.com');
+    const userCurrentAddress = page.getByPlaceholder('Current Address');
+    const userPermanentAddress = page.locator('#permanentAddress');
+    const testOutput = page.locator('#output');
+
+    await textBox.click();
+    await fullNameInput.fill("test name");
+    await expect(fullNameInput).toHaveValue("test name");
+    await userEmailInput.fill("test.email@test.com");
+    await expect(userEmailInput).toHaveValue("test.email@test.com");
+    await userCurrentAddress.fill("test address");
+    await expect(userCurrentAddress).toHaveValue(
+      "test address"
+    );
+    await userPermanentAddress.fill("permanent test address");
+    await expect(userPermanentAddress).toHaveValue(
+      "permanent test address"
+    );
+    await expect(testOutput).toBeHidden();
+    await page.locator('.btn-primary').click();
+    await expect(testOutput).toBeVisible();
+    // await expect(testOutput.innerText()).toContain(`${"test name"}, ${"test.email@test.com"}, ${"test address"}, ${"permanent test address"}`);
   });
 
   test("opens Check Box and verifies elements", async ({ page }) => {
