@@ -70,6 +70,15 @@ test.describe("Demo QA - elements page", () => {
     await checkBox.click();
     await expect(node).toBeVisible();
     await expect(node.nth(0)).toBeEnabled();
+    await expect(page.locator(".rct-collapse")).toBeVisible();
+    await expect(page.locator(".rct-collapse")).toHaveAttribute('type', 'button');
+    await expect(page.locator(".rct-checkbox")).toBeVisible();
+    await page.locator(".rct-checkbox").click();
+    await expect(page.locator("#result")).toBeVisible();
+    await expect(page.locator("#result")).toHaveText("You have selected :homedesktopnotescommandsdocumentsworkspacereactangularveuofficepublicprivateclassifiedgeneraldownloadswordFileexcelFile");
+    await expect(page.locator(".rct-node-icon")).toBeVisible();
+    await expect(page.locator(".rct-title")).toBeVisible();
+    await expect(page.locator(".rct-title")).toHaveText("Home");
   });
 
   test("opens Radio Button and verifies elements", async ({ page }) => {
