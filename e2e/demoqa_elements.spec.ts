@@ -65,20 +65,32 @@ test.describe("Demo QA - elements page", () => {
   test("opens Check Box and verifies elements", async ({ page }) => {
     const checkBox = page.getByText("Check Box");
     const node = page.locator("#tree-node");
+    const nodeArrow = page.locator(".rct-collapse");
+    const nodeCheckbox = page.locator(".rct-checkbox");
+    const nodeResults = page.locator("#result");
+    const nodeTitle = page.locator(".rct-title");
+    const nodeExpandButton = page.locator(".rct-options .rct-option").nth(0)
+    const nodeCollapseButton = page.locator(".rct-options .rct-option").nth(1)
 
     await expect(checkBox).toHaveText("Check Box");
     await checkBox.click();
     await expect(node).toBeVisible();
     await expect(node.nth(0)).toBeEnabled();
-    await expect(page.locator(".rct-collapse")).toBeVisible();
-    await expect(page.locator(".rct-collapse")).toHaveAttribute('type', 'button');
-    await expect(page.locator(".rct-checkbox")).toBeVisible();
-    await page.locator(".rct-checkbox").click();
-    await expect(page.locator("#result")).toBeVisible();
-    await expect(page.locator("#result")).toHaveText("You have selected :homedesktopnotescommandsdocumentsworkspacereactangularveuofficepublicprivateclassifiedgeneraldownloadswordFileexcelFile");
+    await expect(nodeArrow).toBeVisible();
+    await expect(nodeArrow).toHaveAttribute('type', 'button');
+    await expect(nodeCheckbox).toBeVisible();
+    await nodeCheckbox.click();
+    await expect(nodeResults).toBeVisible();
+    await expect(nodeResults).toHaveText("You have selected :homedesktopnotescommandsdocumentsworkspacereactangularveuofficepublicprivateclassifiedgeneraldownloadswordFileexcelFile");
     await expect(page.locator(".rct-node-icon")).toBeVisible();
-    await expect(page.locator(".rct-title")).toBeVisible();
-    await expect(page.locator(".rct-title")).toHaveText("Home");
+    await expect(nodeTitle).toBeVisible();
+    await expect(nodeTitle).toHaveText("Home");
+    await expect(nodeExpandButton).toBeVisible();
+    await expect(nodeExpandButton).toHaveAttribute('type', 'button');
+    await expect(nodeExpandButton).toHaveAttribute('title', 'Expand all');
+    await expect(nodeCollapseButton).toBeVisible();
+    await expect(nodeCollapseButton).toHaveAttribute('type', 'button');
+    await expect(nodeCollapseButton).toHaveAttribute('title', 'Collapse all');
   });
 
   test("opens Radio Button and verifies elements", async ({ page }) => {
