@@ -95,9 +95,18 @@ test.describe("Demo QA - elements page", () => {
 
   test("opens Radio Button and verifies elements", async ({ page }) => {
     const radioButton = page.getByText("Radio Button");
+    const singleRadioButton = page.locator(".custom-control-inline");
 
     await expect(radioButton).toHaveText("Radio Button");
     await radioButton.click();
+    await expect(page.getByText('Do you like the site?')).toBeVisible();
+    await expect(singleRadioButton.nth(0)).toBeVisible();
+    await expect(singleRadioButton.nth(0)).toHaveText("Yes");
+    await expect(singleRadioButton.nth(1)).toBeVisible();
+    await expect(singleRadioButton.nth(1)).toHaveText("Impressive");
+    await expect(singleRadioButton.nth(2)).toBeVisible();
+    await expect(singleRadioButton.nth(2)).toHaveText("No");
+    await expect(singleRadioButton.nth(2)).toHaveClass(/disabled/);
   });
 
   test("opens Web Tables and verifies elements", async ({ page }) => {
