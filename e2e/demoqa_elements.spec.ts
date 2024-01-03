@@ -64,9 +64,12 @@ test.describe("Demo QA - elements page", () => {
 
   test("opens Check Box and verifies elements", async ({ page }) => {
     const checkBox = page.getByText("Check Box");
+    const node = page.locator("#tree-node");
 
     await expect(checkBox).toHaveText("Check Box");
     await checkBox.click();
+    await expect(node).toBeVisible();
+    await expect(node.nth(0)).toBeEnabled();
   });
 
   test("opens Radio Button and verifies elements", async ({ page }) => {
