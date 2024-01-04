@@ -117,10 +117,20 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Buttons and verifies elements", async ({ page }) => {
-    const buttons = page.getByText("Buttons");
+    const buttonsColumn = page.getByText("Buttons");
+    const button = page.locator(".btn-primary");
 
-    await expect(buttons).toHaveText("Buttons");
-    await buttons.click();
+    await expect(buttonsColumn).toHaveText("Buttons");
+    await buttonsColumn.click();
+    await expect(button.nth(0)).toBeVisible();
+    await expect(button.nth(0)).toHaveText("Double Click Me");
+    await expect(button.nth(0)).toHaveAttribute("type", "button");
+    await expect(button.nth(1)).toBeVisible();
+    await expect(button.nth(1)).toHaveText("Right Click Me");
+    await expect(button.nth(1)).toHaveAttribute("type", "button");
+    await expect(button.nth(2)).toBeVisible();
+    await expect(button.nth(2)).toHaveText("Click Me");
+    await expect(button.nth(2)).toHaveAttribute("type", "button");
 
   });
 
