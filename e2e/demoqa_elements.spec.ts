@@ -168,9 +168,50 @@ test.describe("Demo QA - elements page", () => {
 
   test("opens Links and verifies elements", async ({ page }) => {
     const linksMenu = page.getByText("Links", { exact: true });
+    const title = page.locator("h5");
+    const hyperLink = page.locator("a");
+    const validURL = "https://demoqa.com";
+    const response = page.locator("#linkResponse");
 
     await expect(linksMenu).toHaveText("Links");
     await linksMenu.click();
+    await expect(title.nth(0)).toBeVisible();
+    await expect(title.nth(0)).toHaveText("Following links will open new tab");
+    await expect(hyperLink.nth(2)).toBeVisible();
+    await expect(hyperLink.nth(2)).toHaveText("Home");
+    await expect(hyperLink.nth(2)).toHaveAttribute("href", validURL);
+    await expect(hyperLink.nth(3)).toBeVisible();
+    await expect(hyperLink.nth(3)).toHaveText(/Home/);
+    await expect(hyperLink.nth(3)).toHaveAttribute("href", validURL);
+    await expect(title.nth(1)).toHaveText("Following links will send an api call");
+    await expect(hyperLink.nth(4)).toBeVisible();
+    await expect(hyperLink.nth(4)).toHaveText("Created");
+    await expect(hyperLink.nth(5)).toBeVisible();
+    await expect(hyperLink.nth(5)).toHaveText("No Content");
+    await expect(hyperLink.nth(6)).toBeVisible();
+    await expect(hyperLink.nth(6)).toHaveText("Moved");
+    await expect(hyperLink.nth(7)).toBeVisible();
+    await expect(hyperLink.nth(7)).toHaveText("Bad Request");
+    await expect(hyperLink.nth(8)).toBeVisible();
+    await expect(hyperLink.nth(8)).toHaveText("Unauthorized");
+    await expect(hyperLink.nth(9)).toBeVisible();
+    await expect(hyperLink.nth(9)).toHaveText("Forbidden");
+    await expect(hyperLink.nth(10)).toBeVisible();
+    await expect(hyperLink.nth(10)).toHaveText("Not Found");
+    await (hyperLink.nth(4)).click();
+    await expect(response).toHaveText("Link has responded with staus 201 and status text Created");
+    await (hyperLink.nth(5)).click();
+    await expect(response).toHaveText("Link has responded with staus 204 and status text No Content");
+    await (hyperLink.nth(6)).click();
+    await expect(response).toHaveText("Link has responded with staus 301 and status text Moved Permanently");
+    await (hyperLink.nth(7)).click();
+    await expect(response).toHaveText("Link has responded with staus 400 and status text Bad Request");
+    await (hyperLink.nth(8)).click();
+    await expect(response).toHaveText("Link has responded with staus 401 and status text Unauthorized");
+    await (hyperLink.nth(9)).click();
+    await expect(response).toHaveText("Link has responded with staus 403 and status text Forbidden");
+    await (hyperLink.nth(10)).click();
+    await expect(response).toHaveText("Link has responded with staus 404 and status text Not Found");
   });
 
   test("opens Broken Links and verifies elements", async ({ page }) => {
@@ -180,8 +221,8 @@ test.describe("Demo QA - elements page", () => {
     const image = page.locator("img");
     const validJPG = "/images/Toolsqa.jpg";
     const invalidJPG = "/images/Toolsqa_1.jpg";
-    const validHTML = "http://demoqa.com";
-    const invalidHTML = "http://the-internet.herokuapp.com/status_codes/500";
+    const validURL = "http://demoqa.com";
+    const invalidURL = "http://the-internet.herokuapp.com/status_codes/500";
 
     await expect(brokenLinksMenu).toHaveText("Broken Links - Images");
     await brokenLinksMenu.click();
@@ -191,10 +232,10 @@ test.describe("Demo QA - elements page", () => {
     await expect(image.nth(3)).toHaveAttribute('src', invalidJPG);
     await expect(title.nth(2)).toHaveText("Valid Link");
     await expect(hyperLink.nth(2)).toHaveText("Click Here for Valid Link");
-    await expect(hyperLink.nth(2)).toHaveAttribute("href", validHTML);
+    await expect(hyperLink.nth(2)).toHaveAttribute("href", validURL);
     await expect(title.nth(3)).toHaveText("Broken Link");
     await expect(hyperLink.nth(3)).toHaveText("Click Here for Broken Link");
-    await expect(hyperLink.nth(3)).toHaveAttribute("href", invalidHTML);
+    await expect(hyperLink.nth(3)).toHaveAttribute("href", invalidURL);
   });
 
   test("opens Upload and Download and verifies elements", async ({ page }) => {
