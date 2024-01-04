@@ -175,9 +175,26 @@ test.describe("Demo QA - elements page", () => {
 
   test("opens Broken Links and verifies elements", async ({ page }) => {
     const brokenLinksMenu = page.getByText("Broken Links - Images");
+    const title = page.locator("p");
+    const hyperLink = page.locator("a");
+    const image = page.locator("img");
+    const validJPG = "/images/Toolsqa.jpg";
+    const invalidJPG = "/images/Toolsqa_1.jpg";
+    const validHTML = "http://demoqa.com";
+    const invalidHTML = "http://the-internet.herokuapp.com/status_codes/500";
 
     await expect(brokenLinksMenu).toHaveText("Broken Links - Images");
     await brokenLinksMenu.click();
+    await expect(title.nth(0)).toHaveText("Valid image");
+    await expect(image.nth(2)).toHaveAttribute('src', validJPG);
+    await expect(title.nth(1)).toHaveText("Broken image");
+    await expect(image.nth(3)).toHaveAttribute('src', invalidJPG);
+    await expect(title.nth(2)).toHaveText("Valid Link");
+    await expect(hyperLink.nth(2)).toHaveText("Click Here for Valid Link");
+    await expect(hyperLink.nth(2)).toHaveAttribute("href", validHTML);
+    await expect(title.nth(3)).toHaveText("Broken Link");
+    await expect(hyperLink.nth(3)).toHaveText("Click Here for Broken Link");
+    await expect(hyperLink.nth(3)).toHaveAttribute("href", invalidHTML);
   });
 
   test("opens Upload and Download and verifies elements", async ({ page }) => {
