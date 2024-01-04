@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import { time } from "console";
+import { text } from "stream/consumers";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("https://demoqa.com/elements");
@@ -187,8 +189,23 @@ test.describe("Demo QA - elements page", () => {
 
   test("opens Dynamic Properties and verifies elements", async ({ page }) => {
     const dynamicProperties = page.getByText("Dynamic Properties");
+    const textWithDynamicId = page.locator('p');
+    const button = page.locator(".btn-primary");
 
     await expect(dynamicProperties).toHaveText("Dynamic Properties");
     await dynamicProperties.click();
+    await expect(textWithDynamicId).toBeVisible();
+    await expect(textWithDynamicId).toHaveText("This text has random Id");
+    await expect(textWithDynamicId).toHaveAttribute('id', /.{5}/);
+    await expect(button.nth(0)).toBeVisible();
+    await expect(button.nth(0)).toBeDisabled();
+    await expect(button.nth(0)).toHaveText("Will enable 5 seconds");
+    await expect(button.nth(1)).toBeVisible();
+    await expect(button.nth(1)).not.toHaveClass('text-danger');
+    await expect(button.nth(1)).toHaveText("Color Change");
+    await expect(button.nth(2)).toBeHidden({timeout: 6000});
+    await expect(button.nth(2)).toBeVisible();
+    await expect(button.nth(2)).toHaveText("Visible After 5 Seconds");
+    await expect(button.nth(1)).toHaveClass(/text-danger/);
   });
 });
