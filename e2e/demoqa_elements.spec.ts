@@ -131,7 +131,21 @@ test.describe("Demo QA - elements page", () => {
     await expect(button.nth(2)).toBeVisible();
     await expect(button.nth(2)).toHaveText("Click Me");
     await expect(button.nth(2)).toHaveAttribute("type", "button");
+  });
 
+  test("opens Buttons and triggers actions", async ({ page }) => {
+    const buttonsColumn = page.getByText("Buttons");
+    const button = page.locator(".btn-primary");
+
+
+    await expect(buttonsColumn).toHaveText("Buttons");
+    await buttonsColumn.click();
+    await button.nth(0).dblclick();
+    await expect(page.locator("#doubleClickMessage")).toHaveText("You have done a double click");
+    await button.nth(1).click({ button: "right" });
+    await expect(page.locator("#rightClickMessage")).toHaveText("You have done a right click");
+    await button.nth(2).click();
+    await expect(page.locator("#dynamicClickMessage")).toHaveText("You have done a dynamic click");
   });
 
   test("opens Links and verifies elements", async ({ page }) => {
