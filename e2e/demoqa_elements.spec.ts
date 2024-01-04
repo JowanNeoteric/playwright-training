@@ -1,6 +1,4 @@
 import { test, expect } from "@playwright/test";
-import { time } from "console";
-import { text } from "stream/consumers";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("https://demoqa.com/elements");
@@ -154,7 +152,6 @@ test.describe("Demo QA - elements page", () => {
   test("opens Buttons and triggers actions", async ({ page }) => {
     const buttonsMenu = page.getByText("Buttons");
     const button = page.locator(".btn-primary");
-
 
     await expect(buttonsMenu).toHaveText("Buttons");
     await buttonsMenu.click();
