@@ -13,11 +13,11 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Text Box and verifies elements", async ({ page }) => {
-    const textBox = page.getByText("Text Box");
+    const textBoxColumn = page.getByText("Text Box");
 
     await expect(page.getByText("Elements").nth(1)).toBeVisible();
-    await expect(textBox).toHaveText("Text Box");
-    await textBox.click();
+    await expect(textBoxColumn).toHaveText("Text Box");
+    await textBoxColumn.click();
     await expect(page.locator("#userName-wrapper")).toHaveText("Full Name");
     await expect(page.getByPlaceholder('Full Name')).toBeEditable();
     await expect(page.getByPlaceholder('Full Name')).toHaveAttribute('type', "text")
@@ -36,14 +36,14 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Text Box and fills with test data", async ({ page }) => {
-    const textBox = page.getByText("Text Box");
+    const textBoxColumn = page.getByText("Text Box");
     const fullNameInput = page.getByPlaceholder('Full Name');
     const userEmailInput = page.getByPlaceholder('name@example.com');
     const userCurrentAddress = page.getByPlaceholder('Current Address');
     const userPermanentAddress = page.locator('#permanentAddress');
     const testOutput = page.locator('#output');
 
-    await textBox.click();
+    await textBoxColumn.click();
     await fullNameInput.fill("test name");
     await expect(fullNameInput).toHaveValue("test name");
     await userEmailInput.fill("test.email@test.com");
@@ -63,7 +63,7 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Check Box and verifies elements", async ({ page }) => {
-    const checkBox = page.getByText("Check Box");
+    const checkBoxColumn = page.getByText("Check Box");
     const node = page.locator("#tree-node");
     const nodeArrow = page.locator(".rct-collapse");
     const nodeCheckbox = page.locator(".rct-checkbox");
@@ -72,8 +72,8 @@ test.describe("Demo QA - elements page", () => {
     const nodeExpandButton = page.locator(".rct-options .rct-option").nth(0)
     const nodeCollapseButton = page.locator(".rct-options .rct-option").nth(1)
 
-    await expect(checkBox).toHaveText("Check Box");
-    await checkBox.click();
+    await expect(checkBoxColumn).toHaveText("Check Box");
+    await checkBoxColumn.click();
     await expect(node).toBeVisible();
     await expect(node.nth(0)).toBeEnabled();
     await expect(nodeArrow).toBeVisible();
@@ -121,6 +121,7 @@ test.describe("Demo QA - elements page", () => {
 
     await expect(buttons).toHaveText("Buttons");
     await buttons.click();
+
   });
 
   test("opens Links and verifies elements", async ({ page }) => {
