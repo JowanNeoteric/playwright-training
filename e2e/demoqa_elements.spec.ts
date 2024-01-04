@@ -109,6 +109,22 @@ test.describe("Demo QA - elements page", () => {
     await expect(singleRadioButton.nth(2)).toHaveClass(/disabled/);
   });
 
+  test("opens Radio Button and triggers action", async ({ page }) => {
+    const radioButtonColumn = page.getByText("Radio Button");
+    const singleRadioButton = page.locator(".custom-control-inline");
+    const text = page.locator("p");
+    const result = page.locator(".text-success");
+
+    await expect(radioButtonColumn).toHaveText("Radio Button");
+    await radioButtonColumn.click();
+    await singleRadioButton.nth(0).click();
+    await expect(text).toHaveText(/You have selected/);
+    await expect(result).toHaveText("Yes");
+    await singleRadioButton.nth(1).click();
+    await expect(text).toHaveText(/You have selected/);
+    await expect(result).toHaveText("Impressive");
+  });
+
   test("opens Web Tables and verifies elements", async ({ page }) => {
     const webTables = page.getByText("Web Tables");
 
