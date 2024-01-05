@@ -24,14 +24,10 @@ test.describe("Demo QA - elements page", () => {
     await expect(page.locator("#userEmail-wrapper")).toHaveText("Email");
     await expect(page.getByPlaceholder('name@example.com')).toBeEditable();
     await expect(page.getByPlaceholder('name@example.com')).toHaveAttribute('type', "email")
-    await expect(page.locator("#currentAddress-wrapper")).toHaveText(
-      "Current Address"
-    );
+    await expect(page.locator("#currentAddress-wrapper")).toHaveText("Current Address");
     await expect(page.getByPlaceholder('Current Address')).toBeEditable();
     await expect(page.getByPlaceholder('Current Address')).toHaveAttribute('id', "currentAddress")
-    await expect(page.locator("#permanentAddress-wrapper")).toHaveText(
-      "Permanent Address"
-    );
+    await expect(page.locator("#permanentAddress-wrapper")).toHaveText("Permanent Address");
     await expect(page.locator('.btn-primary')).toHaveText('Submit');
   });
 
@@ -49,13 +45,9 @@ test.describe("Demo QA - elements page", () => {
     await userEmailInput.fill("test.email@test.com");
     await expect(userEmailInput).toHaveValue("test.email@test.com");
     await userCurrentAddress.fill("test address");
-    await expect(userCurrentAddress).toHaveValue(
-      "test address"
-    );
+    await expect(userCurrentAddress).toHaveValue("test address");
     await userPermanentAddress.fill("permanent test address");
-    await expect(userPermanentAddress).toHaveValue(
-      "permanent test address"
-    );
+    await expect(userPermanentAddress).toHaveValue("permanent test address");
     await expect(testOutput).toBeHidden();
     await page.locator('.btn-primary').click();
     await expect(testOutput).toBeVisible();
