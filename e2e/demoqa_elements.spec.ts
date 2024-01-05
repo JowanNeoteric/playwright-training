@@ -93,6 +93,47 @@ test.describe("Demo QA - elements page", () => {
     await expect(nodeCollapseButton).toHaveAttribute('title', 'Collapse all');
   });
 
+  test("opens Check Box and triggers actions", async ({ page }) => {
+    const checkBoxMenu = page.getByText("Check Box");
+    const node = page.locator("#tree-node");
+    const nodeArrow = page.getByLabel("Toggle");
+    const nodeCheckbox = page.locator(".rct-checkbox");
+    const nodeExpanded = page.locator(".rct-node-collapsed");
+    const nodeResults = page.locator("#result");
+    const nodeTitle = page.locator(".rct-title");
+
+    await expect(checkBoxMenu).toHaveText("Check Box");
+    await checkBoxMenu.click();
+    await expect(node).toBeVisible();
+    await expect(node.nth(0)).toBeEnabled();
+    await nodeArrow.click();
+    await expect(nodeExpanded).toHaveCount(3);
+    await expect(nodeTitle.nth(1)).toHaveText("Desktop");
+    await nodeCheckbox.nth(1).check();
+    await expect(nodeResults).toHaveText(/You have selected :desktopnotescommands/);
+    await nodeCheckbox.nth(1).uncheck();
+    await expect(nodeTitle.nth(2)).toHaveText("Documents");
+    await nodeCheckbox.nth(2).check();
+    await expect(nodeResults).toHaveText(/You have selected :documentsworkspacereactangularveuofficepublicprivateclassifiedgeneral/);
+    await nodeCheckbox.nth(2).uncheck();
+    await expect(nodeTitle.nth(3)).toHaveText("Downloads");
+    await nodeCheckbox.nth(3).check();
+    await expect(nodeResults).toHaveText(/You have selected :downloadswordFileexcelFile/);
+    await nodeCheckbox.nth(3).uncheck();
+    await nodeArrow.nth(1).click();
+    await expect(nodeTitle.nth(2)).toHaveText("Notes");
+    await expect(nodeTitle.nth(3)).toHaveText("Commands");
+    await nodeArrow.nth(1).click();
+    await nodeArrow.nth(2).click();
+    await expect(nodeTitle.nth(3)).toHaveText("WorkSpace");
+    await expect(nodeTitle.nth(4)).toHaveText("Office");
+    await nodeArrow.nth(2).click();
+    await nodeArrow.nth(3).click();
+    await expect(nodeTitle.nth(4)).toHaveText("Word File.doc");
+    await expect(nodeTitle.nth(5)).toHaveText("Excel File.doc");
+    await nodeArrow.nth(3).click();
+  });
+
   test("opens Radio Button and verifies elements", async ({ page }) => {
     const radioButtonMenu = page.getByText("Radio Button");
     const singleRadioButton = page.locator(".custom-control-inline");
