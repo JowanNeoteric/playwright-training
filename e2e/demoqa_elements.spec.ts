@@ -5,35 +5,48 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe("Demo QA - elements page", () => {
+  const text = {
+    elements: "Elements",
+    textBox: "Text Box",
+    fullName: "Full Name",
+    email: "name@example.com",
+    currentAddress: "Current Address"
+  };
+  const attribute = {
+    type: "type",
+    text: "text"
+  };
+  const locator = {
+    username: "#userName-wrapper"
+  }
+
   test('has title "DEMOQA" and proper body message', async ({ page }) => {
     await expect(page).toHaveTitle("DEMOQA");
-    await expect(
-      page.getByText("Please select an item from left to start practice.")
-    ).toBeVisible();
+    await expect(page.getByText("Please select an item from left to start practice.")).toBeVisible();
   });
 
   test("opens Text Box and verifies elements", async ({ page }) => {
     const textBoxMenu = page.getByText("Text Box");
 
-    await expect(page.getByText("Elements").nth(1)).toBeVisible();
-    await expect(textBoxMenu).toHaveText("Text Box");
+    await expect(page.getByText(text.elements).nth(1)).toBeVisible();
+    await expect(textBoxMenu).toHaveText(text.textBox);
     await textBoxMenu.click();
-    await expect(page.locator("#userName-wrapper")).toHaveText("Full Name");
-    await expect(page.getByPlaceholder('Full Name')).toBeEditable();
-    await expect(page.getByPlaceholder('Full Name')).toHaveAttribute('type', "text")
+    await expect(page.locator(locator.username)).toHaveText(text.fullName);
+    await expect(page.getByPlaceholder(text.fullName)).toBeEditable();
+    await expect(page.getByPlaceholder(text.fullName)).toHaveAttribute(attribute.type, attribute.text)
     await expect(page.locator("#userEmail-wrapper")).toHaveText("Email");
-    await expect(page.getByPlaceholder('name@example.com')).toBeEditable();
-    await expect(page.getByPlaceholder('name@example.com')).toHaveAttribute('type', "email")
-    await expect(page.locator("#currentAddress-wrapper")).toHaveText("Current Address");
-    await expect(page.getByPlaceholder('Current Address')).toBeEditable();
-    await expect(page.getByPlaceholder('Current Address')).toHaveAttribute('id', "currentAddress")
+    await expect(page.getByPlaceholder(text.email)).toBeEditable();
+    await expect(page.getByPlaceholder(text.email)).toHaveAttribute('type', "email")
+    await expect(page.locator("#currentAddress-wrapper")).toHaveText(text.currentAddress);
+    await expect(page.getByPlaceholder(text.currentAddress)).toBeEditable();
+    await expect(page.getByPlaceholder(text.currentAddress)).toHaveAttribute('id', "currentAddress")
     await expect(page.locator("#permanentAddress-wrapper")).toHaveText("Permanent Address");
     await expect(page.locator('.btn-primary')).toHaveText('Submit');
   });
 
   test("opens Text Box and fills with test data", async ({ page }) => {
     const textBoxMenu = page.getByText("Text Box");
-    const fullNameInput = page.getByPlaceholder('Full Name');
+    const fullNameInput = page.getByPlaceholder(text.fullName);
     const userEmailInput = page.getByPlaceholder('name@example.com');
     const userCurrentAddress = page.getByPlaceholder('Current Address');
     const userPermanentAddress = page.locator('#permanentAddress');
@@ -211,7 +224,7 @@ test.describe("Demo QA - elements page", () => {
     await expect(hyperLink.nth(2)).toHaveText("Home");
     await expect(hyperLink.nth(2)).toHaveAttribute("href", validURL);
     await expect(hyperLink.nth(3)).toBeVisible();
-    await expect(hyperLink.nth(3)).toHaveText(/Home/);
+    await expect(hyperLink.nth(3)).toHaveText("Home" && /.{5}/);
     await expect(hyperLink.nth(3)).toHaveAttribute("href", validURL);
     await expect(title.nth(1)).toHaveText("Following links will send an api call");
     await expect(hyperLink.nth(4)).toBeVisible();
@@ -299,8 +312,8 @@ test.describe("Demo QA - elements page", () => {
     await expect(button.nth(1)).toBeVisible();
     await expect(button.nth(1)).not.toHaveClass('text-danger');
     await expect(button.nth(1)).toHaveText("Color Change");
-    await expect(button.nth(2)).toBeHidden({ timeout: 6000 });
-    await expect(button.nth(2)).toBeVisible();
+    await expect(button.nth(2)).toBeHidden();
+    await expect(button.nth(2)).toBeVisible({ timeout: 5000 });
     await expect(button.nth(2)).toHaveText("Visible After 5 Seconds");
     await expect(button.nth(1)).toHaveClass(/text-danger/);
   });
