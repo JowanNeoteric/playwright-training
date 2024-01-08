@@ -5,52 +5,75 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe("Demo QA - elements page", () => {
+
   const text = {
-    elements: "Elements",
-    textBox: "Text Box",
+    menu: {
+      elements: "Elements",
+      textBox: "Text Box",
+    },
+    email: "Email",
     fullName: "Full Name",
-    email: "name@example.com",
-    currentAddress: "Current Address"
+    exampleEmail: "name@example.com",
+    currentAddress: "Current Address",
+    demopage: "DEMOQA",
+    welcomeMessage: "Please select an item from left to start practice.",
+    permanentAddress: "Permanent Address",
+    submit: "Submit"
   };
   const attribute = {
     type: "type",
-    text: "text"
+    id: "id",
+    value: {
+      text: "text",
+      email: "email",
+      currentAddress: "currentAddress"
+    }
   };
-  const locator = {
-    username: "#userName-wrapper"
+  const selector = {
+    generic: {
+      button: '.btn-primary',
+      result: '#output'
+    },
+    username: "#userName-wrapper",
+    email: "#userEmail-wrapper",
+    currentAddress: "#currentAddress-wrapper",
+    permanentAddress: "#permanentAddress-wrapper"
+  }
+  const input = {
+    testName: "test name"
   }
 
   test('has title "DEMOQA" and proper body message', async ({ page }) => {
-    await expect(page).toHaveTitle("DEMOQA");
-    await expect(page.getByText("Please select an item from left to start practice.")).toBeVisible();
+    await expect(page).toHaveTitle(text.demopage);
+    await expect(page.getByText(text.welcomeMessage)).toBeVisible();
   });
 
   test("opens Text Box and verifies elements", async ({ page }) => {
-    const textBoxMenu = page.getByText("Text Box");
+    const textBoxMenu = page.getByText(text.menu.textBox);
 
-    await expect(page.getByText(text.elements).nth(1)).toBeVisible();
-    await expect(textBoxMenu).toHaveText(text.textBox);
+    await expect(page.getByText(text.menu.elements).nth(1)).toBeVisible();
+    await expect(textBoxMenu).toHaveText(text.menu.textBox);
     await textBoxMenu.click();
-    await expect(page.locator(locator.username)).toHaveText(text.fullName);
+    await expect(page.locator(selector.username)).toHaveText(text.fullName);
     await expect(page.getByPlaceholder(text.fullName)).toBeEditable();
-    await expect(page.getByPlaceholder(text.fullName)).toHaveAttribute(attribute.type, attribute.text)
-    await expect(page.locator("#userEmail-wrapper")).toHaveText("Email");
-    await expect(page.getByPlaceholder(text.email)).toBeEditable();
-    await expect(page.getByPlaceholder(text.email)).toHaveAttribute('type', "email")
-    await expect(page.locator("#currentAddress-wrapper")).toHaveText(text.currentAddress);
+    await expect(page.getByPlaceholder(text.fullName)).toHaveAttribute(attribute.type, attribute.value.text)
+    await expect(page.locator(selector.email)).toHaveText(text.email);
+    await expect(page.getByPlaceholder(text.exampleEmail)).toBeEditable();
+    await expect(page.getByPlaceholder(text.exampleEmail)).toHaveAttribute(attribute.id, attribute.value.email)
+    await expect(page.locator(selector.currentAddress)).toHaveText(text.currentAddress);
     await expect(page.getByPlaceholder(text.currentAddress)).toBeEditable();
-    await expect(page.getByPlaceholder(text.currentAddress)).toHaveAttribute('id', "currentAddress")
-    await expect(page.locator("#permanentAddress-wrapper")).toHaveText("Permanent Address");
-    await expect(page.locator('.btn-primary')).toHaveText('Submit');
+    await expect(page.getByPlaceholder(text.currentAddress)).toHaveAttribute(attribute.id, attribute.value.currentAddress)
+    await expect(page.locator(selector.permanentAddress)).toHaveText(text.permanentAddress);
+    await expect(page.locator(selector.generic.button)).toHaveText(text.submit);
   });
 
   test("opens Text Box and fills with test data", async ({ page }) => {
-    const textBoxMenu = page.getByText("Text Box");
+    const textBoxMenu = page.getByText(text.menu.textBox);
     const fullNameInput = page.getByPlaceholder(text.fullName);
-    const userEmailInput = page.getByPlaceholder('name@example.com');
-    const userCurrentAddress = page.getByPlaceholder('Current Address');
-    const userPermanentAddress = page.locator('#permanentAddress');
-    const testOutput = page.locator('#output');
+    const userEmailInput = page.getByPlaceholder(text.exampleEmail);
+    const userCurrentAddress = page.getByPlaceholder(text.currentAddress);
+    const userPermanentAddress = page.locator(text.permanentAddress);
+    const testOutput = page.locator(selector.generic.result);
 
     await textBoxMenu.click();
     await fullNameInput.fill("test name");
