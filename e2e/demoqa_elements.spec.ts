@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { text } from "stream/consumers";
 import { common } from "../fixtures/common";
 
 test.beforeEach(async ({ page }) => {
@@ -6,27 +7,6 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.describe("Demo QA - elements page", () => {
-  const text = {
-    textBox: {
-      email: "Email",
-      fullName: "Full Name",
-      exampleEmail: "name@example.com",
-      currentAddress: "Current Address",
-      permanentAddress: "Permanent Address",
-      submit: "Submit"
-    },
-    welcomeMessage: "Please select an item from left to start practice.",
-    demopage: "DEMOQA",
-  };
-  const attribute = {
-    type: "type",
-    id: "id",
-    value: {
-      text: "text",
-      email: "email",
-      currentAddress: "currentAddress"
-    }
-  };
   const selector = {
     generic: {
       button: '.btn-primary',
@@ -39,18 +19,10 @@ test.describe("Demo QA - elements page", () => {
       permanentAddress: "#permanentAddress-wrapper"
     }
   }
-  const input = {
-    test: {
-      name: "test name",
-      email: "test.email@test.com",
-      address: "test address",
-      permanent: "permanent test address"
-    }
-  }
 
   test('has title "DEMOQA" and proper body message', async ({ page }) => {
-    await expect(page).toHaveTitle(text.demopage);
-    await expect(page.getByText(text.welcomeMessage)).toBeVisible();
+    await expect(page).toHaveTitle(common.text.demopage);
+    await expect(page.getByText(common.text.welcomeMessage)).toBeVisible();
   });
 
   test("opens Text Box and verifies elements", async ({ page }) => {
@@ -59,36 +31,36 @@ test.describe("Demo QA - elements page", () => {
     await expect(page.getByText(common.text.sections.elements).nth(1)).toBeVisible();
     await expect(textBoxMenu).toHaveText(common.text.sections.textBox);
     await textBoxMenu.click();
-    await expect(page.locator(selector.textBox.username)).toHaveText(text.textBox.fullName);
-    await expect(page.getByPlaceholder(text.textBox.fullName)).toBeEditable();
-    await expect(page.getByPlaceholder(text.textBox.fullName)).toHaveAttribute(attribute.type, attribute.value.text)
-    await expect(page.locator(selector.textBox.email)).toHaveText(text.textBox.email);
-    await expect(page.getByPlaceholder(text.textBox.exampleEmail)).toBeEditable();
-    await expect(page.getByPlaceholder(text.textBox.exampleEmail)).toHaveAttribute(attribute.id, attribute.value.email)
-    await expect(page.locator(selector.textBox.currentAddress)).toHaveText(text.textBox.currentAddress);
-    await expect(page.getByPlaceholder(text.textBox.currentAddress)).toBeEditable();
-    await expect(page.getByPlaceholder(text.textBox.currentAddress)).toHaveAttribute(attribute.id, attribute.value.currentAddress)
-    await expect(page.locator(selector.textBox.permanentAddress)).toHaveText(text.textBox.permanentAddress);
-    await expect(page.locator(selector.generic.button)).toHaveText(text.textBox.submit);
+    await expect(page.locator(selector.textBox.username)).toHaveText(common.text.textBox.fullName);
+    await expect(page.getByPlaceholder(common.text.textBox.fullName)).toBeEditable();
+    await expect(page.getByPlaceholder(common.text.textBox.fullName)).toHaveAttribute(common.attribute.type, common.attribute.value.text)
+    await expect(page.locator(selector.textBox.email)).toHaveText(common.text.textBox.email);
+    await expect(page.getByPlaceholder(common.text.textBox.exampleEmail)).toBeEditable();
+    await expect(page.getByPlaceholder(common.text.textBox.exampleEmail)).toHaveAttribute(common.attribute.id, common.attribute.value.email)
+    await expect(page.locator(selector.textBox.currentAddress)).toHaveText(common.text.textBox.currentAddress);
+    await expect(page.getByPlaceholder(common.text.textBox.currentAddress)).toBeEditable();
+    await expect(page.getByPlaceholder(common.text.textBox.currentAddress)).toHaveAttribute(common.attribute.id, common.attribute.value.currentAddress)
+    await expect(page.locator(selector.textBox.permanentAddress)).toHaveText(common.text.textBox.permanentAddress);
+    await expect(page.locator(selector.generic.button)).toHaveText(common.text.textBox.submit);
   });
 
   test("opens Text Box and fills with test data", async ({ page }) => {
     const textBoxMenu = page.getByText(common.text.sections.textBox);
-    const fullNameInput = page.getByPlaceholder(text.textBox.fullName);
-    const userEmailInput = page.getByPlaceholder(text.textBox.exampleEmail);
-    const userCurrentAddress = page.getByPlaceholder(text.textBox.currentAddress);
-    const userPermanentAddress = page.locator(text.textBox.permanentAddress);
+    const fullNameInput = page.getByPlaceholder(common.text.textBox.fullName);
+    const userEmailInput = page.getByPlaceholder(common.text.textBox.exampleEmail);
+    const userCurrentAddress = page.getByPlaceholder(common.text.textBox.currentAddress);
+    const userPermanentAddress = page.locator("#permanentAddress");
     const testOutput = page.locator(selector.generic.result);
 
     await textBoxMenu.click();
-    await fullNameInput.fill(input.test.name);
-    await expect(fullNameInput).toHaveValue(input.test.name);
-    await userEmailInput.fill(input.test.email);
-    await expect(userEmailInput).toHaveValue(input.test.email);
-    await userCurrentAddress.fill(input.test.address);
-    await expect(userCurrentAddress).toHaveValue(input.test.address);
-    await userPermanentAddress.fill(input.test.permanent);
-    await expect(userPermanentAddress).toHaveValue(input.test.permanent);
+    await fullNameInput.fill(common.input.test.name);
+    await expect(fullNameInput).toHaveValue(common.input.test.name);
+    await userEmailInput.fill(common.input.test.email);
+    await expect(userEmailInput).toHaveValue(common.input.test.email);
+    await userCurrentAddress.fill(common.input.test.address);
+    await expect(userCurrentAddress).toHaveValue(common.input.test.address);
+    await userPermanentAddress.fill(common.input.test.permanent);
+    await expect(userPermanentAddress).toHaveValue(common.input.test.permanent);
     await expect(testOutput).toBeHidden();
     await page.locator(selector.generic.button).click();
     await expect(testOutput).toBeVisible();

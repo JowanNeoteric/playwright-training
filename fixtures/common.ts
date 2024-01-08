@@ -7,7 +7,34 @@ export const common = {
 		sections: {
 		},
 	},
+	attribute: {
+		type: "type",
+		id: "id",
+		value: {
+			text: "text",
+			email: "userEmail",
+			currentAddress: "currentAddress"
+		}
+	},
+	input: {
+		test: {
+			name: "test name",
+			email: "test.email@test.com",
+			address: "test address",
+			permanent: "permanent test address"
+		}
+	},
 	text: {
+		welcomeMessage: "Please select an item from left to start practice.",
+		demopage: "DEMOQA",
+		textBox: {
+			email: "Email",
+			fullName: "Full Name",
+			exampleEmail: "name@example.com",
+			currentAddress: "Current Address",
+			permanentAddress: "Permanent Address",
+			submit: "Submit"
+		},
 		sections: {
 			elements: "Elements",
 			textBox: "Text Box",
