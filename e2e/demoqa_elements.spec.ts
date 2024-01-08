@@ -1,24 +1,22 @@
 import { test, expect } from "@playwright/test";
+import { common } from "../fixtures/common";
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("https://demoqa.com/elements");
+  await page.goto(common.url.elements);
 });
 
 test.describe("Demo QA - elements page", () => {
-
   const text = {
-    menu: {
-      elements: "Elements",
-      textBox: "Text Box",
+    textBox: {
+      email: "Email",
+      fullName: "Full Name",
+      exampleEmail: "name@example.com",
+      currentAddress: "Current Address",
+      permanentAddress: "Permanent Address",
+      submit: "Submit"
     },
-    email: "Email",
-    fullName: "Full Name",
-    exampleEmail: "name@example.com",
-    currentAddress: "Current Address",
-    demopage: "DEMOQA",
     welcomeMessage: "Please select an item from left to start practice.",
-    permanentAddress: "Permanent Address",
-    submit: "Submit"
+    demopage: "DEMOQA",
   };
   const attribute = {
     type: "type",
@@ -34,13 +32,20 @@ test.describe("Demo QA - elements page", () => {
       button: '.btn-primary',
       result: '#output'
     },
-    username: "#userName-wrapper",
-    email: "#userEmail-wrapper",
-    currentAddress: "#currentAddress-wrapper",
-    permanentAddress: "#permanentAddress-wrapper"
+    textBox: {
+      username: "#userName-wrapper",
+      email: "#userEmail-wrapper",
+      currentAddress: "#currentAddress-wrapper",
+      permanentAddress: "#permanentAddress-wrapper"
+    }
   }
   const input = {
-    testName: "test name"
+    test: {
+      name: "test name",
+      email: "test.email@test.com",
+      address: "test address",
+      permanent: "permanent test address"
+    }
   }
 
   test('has title "DEMOQA" and proper body message', async ({ page }) => {
@@ -49,49 +54,48 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Text Box and verifies elements", async ({ page }) => {
-    const textBoxMenu = page.getByText(text.menu.textBox);
+    const textBoxMenu = page.getByText(common.text.sections.textBox);
 
-    await expect(page.getByText(text.menu.elements).nth(1)).toBeVisible();
-    await expect(textBoxMenu).toHaveText(text.menu.textBox);
+    await expect(page.getByText(common.text.sections.elements).nth(1)).toBeVisible();
+    await expect(textBoxMenu).toHaveText(common.text.sections.textBox);
     await textBoxMenu.click();
-    await expect(page.locator(selector.username)).toHaveText(text.fullName);
-    await expect(page.getByPlaceholder(text.fullName)).toBeEditable();
-    await expect(page.getByPlaceholder(text.fullName)).toHaveAttribute(attribute.type, attribute.value.text)
-    await expect(page.locator(selector.email)).toHaveText(text.email);
-    await expect(page.getByPlaceholder(text.exampleEmail)).toBeEditable();
-    await expect(page.getByPlaceholder(text.exampleEmail)).toHaveAttribute(attribute.id, attribute.value.email)
-    await expect(page.locator(selector.currentAddress)).toHaveText(text.currentAddress);
-    await expect(page.getByPlaceholder(text.currentAddress)).toBeEditable();
-    await expect(page.getByPlaceholder(text.currentAddress)).toHaveAttribute(attribute.id, attribute.value.currentAddress)
-    await expect(page.locator(selector.permanentAddress)).toHaveText(text.permanentAddress);
-    await expect(page.locator(selector.generic.button)).toHaveText(text.submit);
+    await expect(page.locator(selector.textBox.username)).toHaveText(text.textBox.fullName);
+    await expect(page.getByPlaceholder(text.textBox.fullName)).toBeEditable();
+    await expect(page.getByPlaceholder(text.textBox.fullName)).toHaveAttribute(attribute.type, attribute.value.text)
+    await expect(page.locator(selector.textBox.email)).toHaveText(text.textBox.email);
+    await expect(page.getByPlaceholder(text.textBox.exampleEmail)).toBeEditable();
+    await expect(page.getByPlaceholder(text.textBox.exampleEmail)).toHaveAttribute(attribute.id, attribute.value.email)
+    await expect(page.locator(selector.textBox.currentAddress)).toHaveText(text.textBox.currentAddress);
+    await expect(page.getByPlaceholder(text.textBox.currentAddress)).toBeEditable();
+    await expect(page.getByPlaceholder(text.textBox.currentAddress)).toHaveAttribute(attribute.id, attribute.value.currentAddress)
+    await expect(page.locator(selector.textBox.permanentAddress)).toHaveText(text.textBox.permanentAddress);
+    await expect(page.locator(selector.generic.button)).toHaveText(text.textBox.submit);
   });
 
   test("opens Text Box and fills with test data", async ({ page }) => {
-    const textBoxMenu = page.getByText(text.menu.textBox);
-    const fullNameInput = page.getByPlaceholder(text.fullName);
-    const userEmailInput = page.getByPlaceholder(text.exampleEmail);
-    const userCurrentAddress = page.getByPlaceholder(text.currentAddress);
-    const userPermanentAddress = page.locator(text.permanentAddress);
+    const textBoxMenu = page.getByText(common.text.sections.textBox);
+    const fullNameInput = page.getByPlaceholder(text.textBox.fullName);
+    const userEmailInput = page.getByPlaceholder(text.textBox.exampleEmail);
+    const userCurrentAddress = page.getByPlaceholder(text.textBox.currentAddress);
+    const userPermanentAddress = page.locator(text.textBox.permanentAddress);
     const testOutput = page.locator(selector.generic.result);
 
     await textBoxMenu.click();
-    await fullNameInput.fill("test name");
-    await expect(fullNameInput).toHaveValue("test name");
-    await userEmailInput.fill("test.email@test.com");
-    await expect(userEmailInput).toHaveValue("test.email@test.com");
-    await userCurrentAddress.fill("test address");
-    await expect(userCurrentAddress).toHaveValue("test address");
-    await userPermanentAddress.fill("permanent test address");
-    await expect(userPermanentAddress).toHaveValue("permanent test address");
+    await fullNameInput.fill(input.test.name);
+    await expect(fullNameInput).toHaveValue(input.test.name);
+    await userEmailInput.fill(input.test.email);
+    await expect(userEmailInput).toHaveValue(input.test.email);
+    await userCurrentAddress.fill(input.test.address);
+    await expect(userCurrentAddress).toHaveValue(input.test.address);
+    await userPermanentAddress.fill(input.test.permanent);
+    await expect(userPermanentAddress).toHaveValue(input.test.permanent);
     await expect(testOutput).toBeHidden();
-    await page.locator('.btn-primary').click();
+    await page.locator(selector.generic.button).click();
     await expect(testOutput).toBeVisible();
-    // await expect(testOutput.innerText()).toContain(`${"test name"}, ${"test.email@test.com"}, ${"test address"}, ${"permanent test address"}`);
   });
 
   test("opens Check Box and verifies elements", async ({ page }) => {
-    const checkBoxMenu = page.getByText("Check Box");
+    const checkBoxMenu = page.getByText(common.text.sections.checkBox);
     const node = page.locator("#tree-node");
     const nodeArrow = page.locator(".rct-collapse");
     const nodeCheckbox = page.locator(".rct-checkbox");
@@ -100,7 +104,7 @@ test.describe("Demo QA - elements page", () => {
     const nodeExpandButton = page.locator(".rct-options .rct-option").nth(0)
     const nodeCollapseButton = page.locator(".rct-options .rct-option").nth(1)
 
-    await expect(checkBoxMenu).toHaveText("Check Box");
+    await expect(checkBoxMenu).toHaveText(common.text.sections.checkBox);
     await checkBoxMenu.click();
     await expect(node).toBeVisible();
     await expect(node.nth(0)).toBeEnabled();
@@ -122,7 +126,7 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Check Box and triggers actions", async ({ page }) => {
-    const checkBoxMenu = page.getByText("Check Box");
+    const checkBoxMenu = page.getByText(common.text.sections.checkBox);
     const node = page.locator("#tree-node");
     const nodeArrow = page.getByLabel("Toggle");
     const nodeCheckbox = page.locator(".rct-checkbox");
@@ -130,7 +134,7 @@ test.describe("Demo QA - elements page", () => {
     const nodeResults = page.locator("#result");
     const nodeTitle = page.locator(".rct-title");
 
-    await expect(checkBoxMenu).toHaveText("Check Box");
+    await expect(checkBoxMenu).toHaveText(common.text.sections.checkBox);
     await checkBoxMenu.click();
     await expect(node).toBeVisible();
     await expect(node.nth(0)).toBeEnabled();
