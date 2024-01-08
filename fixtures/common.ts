@@ -10,6 +10,7 @@ export const common = {
 	attribute: {
 		type: "type",
 		id: "id",
+		href: "href",
 		value: {
 			text: "text",
 			email: "userEmail",
@@ -46,6 +47,15 @@ export const common = {
 			brokenLinksImages: "Broken Links - Images",
 			uploadNDownload: "Upload and Download",
 			dynamicProperties: "Dynamic Properties"
+		},
+		statuses: {
+			created: "Created",
+			noContent: "No Content",
+			moved: "Moved",
+			badRequest: "Bad Request",
+			unauthorized: "Unauthorized",
+			forbidden: "Forbidden",
+			notFound: "Not Found"
 		},
 		responses: {
 			201: "Link has responded with staus 201 and status text Created",
