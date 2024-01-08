@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-import { text } from "stream/consumers";
 import { common } from "../fixtures/common";
 
 test.beforeEach(async ({ page }) => {
