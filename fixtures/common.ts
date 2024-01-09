@@ -76,14 +76,6 @@ export const common = {
 	text: {
 		welcomeMessage: "Please select an item from left to start practice.",
 		demopage: "DEMOQA",
-		textBox: {
-			email: "Email",
-			fullName: "Full Name",
-			exampleEmail: "name@example.com",
-			currentAddress: "Current Address",
-			permanentAddress: "Permanent Address",
-			submit: "Submit"
-		},
 		sections: {
 			title: {
 				elements: "Elements",
@@ -97,11 +89,13 @@ export const common = {
 				uploadNDownload: "Upload and Download",
 				dynamicProperties: "Dynamic Properties"
 			},
-			elements: {
-
-			},
 			textBox: {
-
+				email: "Email",
+				fullName: "Full Name",
+				exampleEmail: "name@example.com",
+				currentAddress: "Current Address",
+				permanentAddress: "Permanent Address",
+				submit: "Submit"
 			},
 			checkBox: {
 				desktop: "Desktop",

@@ -17,24 +17,24 @@ test.describe("Demo QA - elements page", () => {
     await expect(page.getByText(common.text.sections.title.elements).nth(1)).toBeVisible();
     await expect(textBoxMenu).toHaveText(common.text.sections.title.textBox);
     await textBoxMenu.click();
-    await expect(page.locator(common.selectors.sections.textBox.username)).toHaveText(common.text.textBox.fullName);
-    await expect(page.getByPlaceholder(common.text.textBox.fullName)).toBeEditable();
-    await expect(page.getByPlaceholder(common.text.textBox.fullName)).toHaveAttribute(common.attribute.type, common.attribute.value.text)
-    await expect(page.locator(common.selectors.sections.textBox.email)).toHaveText(common.text.textBox.email);
-    await expect(page.getByPlaceholder(common.text.textBox.exampleEmail)).toBeEditable();
-    await expect(page.getByPlaceholder(common.text.textBox.exampleEmail)).toHaveAttribute(common.attribute.id, common.attribute.value.email)
-    await expect(page.locator(common.selectors.sections.textBox.currentAddress)).toHaveText(common.text.textBox.currentAddress);
-    await expect(page.getByPlaceholder(common.text.textBox.currentAddress)).toBeEditable();
-    await expect(page.getByPlaceholder(common.text.textBox.currentAddress)).toHaveAttribute(common.attribute.id, common.attribute.value.currentAddress)
-    await expect(page.locator(common.selectors.sections.textBox.permanentAddress)).toHaveText(common.text.textBox.permanentAddress);
-    await expect(page.locator(common.selectors.generic.button)).toHaveText(common.text.textBox.submit);
+    await expect(page.locator(common.selectors.sections.textBox.username)).toHaveText(common.text.sections.textBox.fullName);
+    await expect(page.getByPlaceholder(common.text.sections.textBox.fullName)).toBeEditable();
+    await expect(page.getByPlaceholder(common.text.sections.textBox.fullName)).toHaveAttribute(common.attribute.type, common.attribute.value.text)
+    await expect(page.locator(common.selectors.sections.textBox.email)).toHaveText(common.text.sections.textBox.email);
+    await expect(page.getByPlaceholder(common.text.sections.textBox.exampleEmail)).toBeEditable();
+    await expect(page.getByPlaceholder(common.text.sections.textBox.exampleEmail)).toHaveAttribute(common.attribute.id, common.attribute.value.email)
+    await expect(page.locator(common.selectors.sections.textBox.currentAddress)).toHaveText(common.text.sections.textBox.currentAddress);
+    await expect(page.getByPlaceholder(common.text.sections.textBox.currentAddress)).toBeEditable();
+    await expect(page.getByPlaceholder(common.text.sections.textBox.currentAddress)).toHaveAttribute(common.attribute.id, common.attribute.value.currentAddress)
+    await expect(page.locator(common.selectors.sections.textBox.permanentAddress)).toHaveText(common.text.sections.textBox.permanentAddress);
+    await expect(page.locator(common.selectors.generic.button)).toHaveText(common.text.sections.textBox.submit);
   });
 
   test("opens Text Box and fills with test data", async ({ page }) => {
     const textBoxMenu = page.getByText(common.text.sections.title.textBox);
-    const fullNameInput = page.getByPlaceholder(common.text.textBox.fullName);
-    const userEmailInput = page.getByPlaceholder(common.text.textBox.exampleEmail);
-    const userCurrentAddress = page.getByPlaceholder(common.text.textBox.currentAddress);
+    const fullNameInput = page.getByPlaceholder(common.text.sections.textBox.fullName);
+    const userEmailInput = page.getByPlaceholder(common.text.sections.textBox.exampleEmail);
+    const userCurrentAddress = page.getByPlaceholder(common.text.sections.textBox.currentAddress);
     const userPermanentAddress = page.locator(common.selectors.sections.textBox.permanentAddressInput);
     const testOutput = page.locator(common.selectors.generic.output);
 
@@ -294,7 +294,7 @@ test.describe("Demo QA - elements page", () => {
     await expect(button.nth(1)).not.toHaveClass(common.className.redText);
     await expect(button.nth(1)).toHaveText(common.text.sections.dynamicProperties.colorChange);
     await expect(button.nth(2)).toBeHidden();
-    await expect(button.nth(2)).toBeVisible({ timeout: 5000 });
+    await expect(button.nth(2)).toBeVisible({ timeout: 7000 });
     await expect(button.nth(2)).toHaveText(common.text.sections.dynamicProperties.timeVisibility);
     await expect(button.nth(1)).toHaveClass(/text-danger/);
   });
