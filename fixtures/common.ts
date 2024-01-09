@@ -36,7 +36,13 @@ export const common = {
 				response: "#linkResponse"
 			},
 			radioButton: {
-				singleControl: ".custom-control-inline"
+				singleControl: ".custom-control-inline",
+				result: ".text-success"
+			},
+			buttons: {
+				double: "#doubleClickMessage",
+				right: "#rightClickMessage",
+				single: "#dynamicClickMessage"
 			}
 		},
 	},
@@ -123,7 +129,16 @@ export const common = {
 
 			},
 			buttons: {
-
+				click: {
+					double: "Double Click Me",
+					right: "Right Click Me",
+					single: "Click Me"
+				},
+				response: {
+					double: "You have done a double click",
+					right: "You have done a right click",
+					single: "You have done a dynamic click"
+				}
 			},
 			links: {
 				home: "Home",

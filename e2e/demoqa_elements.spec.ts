@@ -141,57 +141,57 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Radio Button and triggers action", async ({ page }) => {
-    const radioButtonMenu = page.getByText("Radio Button");
-    const singleRadioButton = page.locator(".custom-control-inline");
+    const radioButtonMenu = page.getByText(common.text.sections.title.radioButton);
+    const singleRadioButton = page.locator(common.selectors.sections.radioButton.singleControl);
     const text = page.locator(common.selectors.generic.p);
-    const result = page.locator(".text-success");
+    const result = page.locator(common.selectors.sections.radioButton.result);
 
-    await expect(radioButtonMenu).toHaveText("Radio Button");
+    await expect(radioButtonMenu).toHaveText(common.text.sections.title.radioButton);
     await radioButtonMenu.click();
     await singleRadioButton.nth(0).click();
     await expect(text).toHaveText(/You have selected/);
-    await expect(result).toHaveText("Yes");
+    await expect(result).toHaveText(common.text.sections.radioButton.answers.yes);
     await singleRadioButton.nth(1).click();
     await expect(text).toHaveText(/You have selected/);
-    await expect(result).toHaveText("Impressive");
+    await expect(result).toHaveText(common.text.sections.radioButton.answers.impressive);
   });
 
   test("opens Web Tables and verifies elements", async ({ page }) => {
-    const webTables = page.getByText("Web Tables");
+    const webTables = page.getByText(common.text.sections.title.webTables);
 
-    await expect(webTables).toHaveText("Web Tables");
+    await expect(webTables).toHaveText(common.text.sections.title.webTables);
     await webTables.click();
   });
 
   test("opens Buttons and verifies elements", async ({ page }) => {
-    const buttonsMenu = page.getByText("Buttons");
-    const button = page.locator(".btn-primary");
+    const buttonsMenu = page.getByText(common.text.sections.title.buttons);
+    const button = page.locator(common.selectors.generic.button);
 
-    await expect(buttonsMenu).toHaveText("Buttons");
+    await expect(buttonsMenu).toHaveText(common.text.sections.title.buttons);
     await buttonsMenu.click();
     await expect(button.nth(0)).toBeVisible();
-    await expect(button.nth(0)).toHaveText("Double Click Me");
-    await expect(button.nth(0)).toHaveAttribute("type", "button");
+    await expect(button.nth(0)).toHaveText(common.text.sections.buttons.click.double);
+    await expect(button.nth(0)).toHaveAttribute(common.attribute.type, common.attribute.value.button);
     await expect(button.nth(1)).toBeVisible();
-    await expect(button.nth(1)).toHaveText("Right Click Me");
-    await expect(button.nth(1)).toHaveAttribute("type", "button");
+    await expect(button.nth(1)).toHaveText(common.text.sections.buttons.click.right);
+    await expect(button.nth(1)).toHaveAttribute(common.attribute.type, common.attribute.value.button);
     await expect(button.nth(2)).toBeVisible();
-    await expect(button.nth(2)).toHaveText("Click Me");
-    await expect(button.nth(2)).toHaveAttribute("type", "button");
+    await expect(button.nth(2)).toHaveText(common.text.sections.buttons.click.single);
+    await expect(button.nth(2)).toHaveAttribute(common.attribute.type, common.attribute.value.button);
   });
 
   test("opens Buttons and triggers actions", async ({ page }) => {
-    const buttonsMenu = page.getByText("Buttons");
-    const button = page.locator(".btn-primary");
+    const buttonsMenu = page.getByText(common.text.sections.title.buttons);
+    const button = page.locator(common.selectors.generic.button);
 
-    await expect(buttonsMenu).toHaveText("Buttons");
+    await expect(buttonsMenu).toHaveText(common.text.sections.title.buttons);
     await buttonsMenu.click();
     await button.nth(0).dblclick();
-    await expect(page.locator("#doubleClickMessage")).toHaveText("You have done a double click");
+    await expect(page.locator(common.selectors.sections.buttons.double)).toHaveText(common.text.sections.buttons.response.double);
     await button.nth(1).click({ button: "right" });
-    await expect(page.locator("#rightClickMessage")).toHaveText("You have done a right click");
+    await expect(page.locator(common.selectors.sections.buttons.right)).toHaveText(common.text.sections.buttons.response.right);
     await button.nth(2).click();
-    await expect(page.locator("#dynamicClickMessage")).toHaveText("You have done a dynamic click");
+    await expect(page.locator(common.selectors.sections.buttons.single)).toHaveText(common.text.sections.buttons.response.single);
   });
 
   test("opens Links and verifies elements", async ({ page }) => {
@@ -279,7 +279,7 @@ test.describe("Demo QA - elements page", () => {
 
   test("opens Dynamic Properties and verifies elements", async ({ page }) => {
     const dynamicPropertiesMenu = page.getByText(common.text.sections.title.dynamicProperties);
-    const textWithDynamicId = page.locator('p');
+    const textWithDynamicId = page.locator(common.selectors.generic.p);
     const button = page.locator(common.selectors.generic.button);
 
     await expect(dynamicPropertiesMenu).toHaveText(common.text.sections.title.dynamicProperties);
