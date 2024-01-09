@@ -7,17 +7,30 @@ export const common = {
 			img: "img",
 			h5: "h5",
 			button: '.btn-primary',
-			result: '#output'
+			output: '#output'
 		},
 		buttons: {
 			fileChoose: ".form-control-file"
 		},
 		sections: {
 			textBox: {
-				username: "#userName-wrapper",
-				email: "#userEmail-wrapper",
-				currentAddress: "#currentAddress-wrapper",
-				permanentAddress: "#permanentAddress-wrapper"
+				username: "#userName-label",
+				email: "#userEmail-label",
+				currentAddress: "#currentAddress-label",
+				permanentAddress: "#permanentAddress-label",
+				permanentAddressInput: "#permanentAddress"
+			},
+			checkBox: {
+				node: {
+					icon: ".rct-node-icon",
+					main: "#tree-node",
+					arrow: ".rct-collapse",
+					checkBox: ".rct-checkbox",
+					result: "#result",
+					title: ".rct-title",
+					controls: ".rct-options .rct-option",
+					expanded: ".rct-node-collapsed"
+				},
 			},
 			links: {
 				response: "#linkResponse"
@@ -29,7 +42,11 @@ export const common = {
 		id: "id",
 		href: "href",
 		src: "src",
+		title: "title",
 		value: {
+			expand: "Expand all",
+			collapse: "Collapse all",
+			button: "button",
 			text: "text",
 			email: "userEmail",
 			currentAddress: "currentAddress",
@@ -78,7 +95,18 @@ export const common = {
 
 			},
 			checkBox: {
+				desktop: "Desktop",
+				documents: "Documents",
+				downloads: "Downloads",
+				notes: "Notes",
+				commands: "Commands",
+				workspace: "WorkSpace",
+				office: "Office",
+				file: {
+					word: "Word File.doc",
+					excel: "Excel File.doc"
 
+				}
 			},
 			radioButton: {
 
@@ -90,7 +118,25 @@ export const common = {
 			links: {
 				home: "Home",
 				apiCall: "Following links will send an api call",
-				newTab: "Following links will open new tab"
+				newTab: "Following links will open new tab",
+				statuses: {
+					created: "Created",
+					noContent: "No Content",
+					moved: "Moved",
+					badRequest: "Bad Request",
+					unauthorized: "Unauthorized",
+					forbidden: "Forbidden",
+					notFound: "Not Found"
+				},
+				responses: {
+					201: "Link has responded with staus 201 and status text Created",
+					204: "Link has responded with staus 204 and status text No Content",
+					301: "Link has responded with staus 301 and status text Moved Permanently",
+					400: "Link has responded with staus 400 and status text Bad Request",
+					401: "Link has responded with staus 401 and status text Unauthorized",
+					403: "Link has responded with staus 403 and status text Forbidden",
+					404: "Link has responded with staus 404 and status text Not Found"
+				}
 			},
 
 			brokenLinksImages: {
@@ -117,24 +163,7 @@ export const common = {
 			}
 
 		},
-		statuses: {
-			created: "Created",
-			noContent: "No Content",
-			moved: "Moved",
-			badRequest: "Bad Request",
-			unauthorized: "Unauthorized",
-			forbidden: "Forbidden",
-			notFound: "Not Found"
-		},
-		responses: {
-			201: "Link has responded with staus 201 and status text Created",
-			204: "Link has responded with staus 204 and status text No Content",
-			301: "Link has responded with staus 301 and status text Moved Permanently",
-			400: "Link has responded with staus 400 and status text Bad Request",
-			401: "Link has responded with staus 401 and status text Unauthorized",
-			403: "Link has responded with staus 403 and status text Forbidden",
-			404: "Link has responded with staus 404 and status text Not Found"
-		}
+
 	},
 	url: {
 		elements: "https://demoqa.com/elements",

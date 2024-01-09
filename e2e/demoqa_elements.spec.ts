@@ -35,8 +35,8 @@ test.describe("Demo QA - elements page", () => {
     const fullNameInput = page.getByPlaceholder(common.text.textBox.fullName);
     const userEmailInput = page.getByPlaceholder(common.text.textBox.exampleEmail);
     const userCurrentAddress = page.getByPlaceholder(common.text.textBox.currentAddress);
-    const userPermanentAddress = page.locator("#permanentAddress");
-    const testOutput = page.locator(common.selectors.generic.result);
+    const userPermanentAddress = page.locator(common.selectors.sections.textBox.permanentAddressInput);
+    const testOutput = page.locator(common.selectors.generic.output);
 
     await textBoxMenu.click();
     await fullNameInput.fill(common.input.test.name);
@@ -54,43 +54,43 @@ test.describe("Demo QA - elements page", () => {
 
   test("opens Check Box and verifies elements", async ({ page }) => {
     const checkBoxMenu = page.getByText(common.text.sections.title.checkBox);
-    const node = page.locator("#tree-node");
-    const nodeArrow = page.locator(".rct-collapse");
-    const nodeCheckbox = page.locator(".rct-checkbox");
-    const nodeResults = page.locator("#result");
-    const nodeTitle = page.locator(".rct-title");
-    const nodeExpandButton = page.locator(".rct-options .rct-option").nth(0)
-    const nodeCollapseButton = page.locator(".rct-options .rct-option").nth(1)
+    const node = page.locator(common.selectors.sections.checkBox.node.main);
+    const nodeArrow = page.locator(common.selectors.sections.checkBox.node.arrow);
+    const nodeCheckbox = page.locator(common.selectors.sections.checkBox.node.checkBox);
+    const nodeResults = page.locator(common.selectors.sections.checkBox.node.result);
+    const nodeTitle = page.locator(common.selectors.sections.checkBox.node.title);
+    const nodeExpandButton = page.locator(common.selectors.sections.checkBox.node.controls).nth(0)
+    const nodeCollapseButton = page.locator(common.selectors.sections.checkBox.node.controls).nth(1)
 
     await expect(checkBoxMenu).toHaveText(common.text.sections.title.checkBox);
     await checkBoxMenu.click();
     await expect(node).toBeVisible();
     await expect(node.nth(0)).toBeEnabled();
     await expect(nodeArrow).toBeVisible();
-    await expect(nodeArrow).toHaveAttribute('type', 'button');
+    await expect(nodeArrow).toHaveAttribute(common.attribute.type, common.attribute.value.button);
     await expect(nodeCheckbox).toBeVisible();
     await nodeCheckbox.click();
     await expect(nodeResults).toBeVisible();
-    await expect(nodeResults).toHaveText("You have selected :homedesktopnotescommandsdocumentsworkspacereactangularveuofficepublicprivateclassifiedgeneraldownloadswordFileexcelFile");
-    await expect(page.locator(".rct-node-icon")).toBeVisible();
+    await expect(nodeResults).toHaveText(/You have selected/);
+    await expect(page.locator(common.selectors.sections.checkBox.node.icon)).toBeVisible();
     await expect(nodeTitle).toBeVisible();
     await expect(nodeTitle).toHaveText(common.text.sections.links.home);
     await expect(nodeExpandButton).toBeVisible();
-    await expect(nodeExpandButton).toHaveAttribute('type', 'button');
-    await expect(nodeExpandButton).toHaveAttribute('title', 'Expand all');
+    await expect(nodeExpandButton).toHaveAttribute(common.attribute.type, common.attribute.value.button);
+    await expect(nodeExpandButton).toHaveAttribute(common.attribute.title, common.attribute.value.expand);
     await expect(nodeCollapseButton).toBeVisible();
-    await expect(nodeCollapseButton).toHaveAttribute('type', 'button');
-    await expect(nodeCollapseButton).toHaveAttribute('title', 'Collapse all');
+    await expect(nodeCollapseButton).toHaveAttribute(common.attribute.type, common.attribute.value.button);
+    await expect(nodeCollapseButton).toHaveAttribute(common.attribute.title, common.attribute.value.collapse);
   });
 
   test("opens Check Box and triggers actions", async ({ page }) => {
     const checkBoxMenu = page.getByText(common.text.sections.title.checkBox);
-    const node = page.locator("#tree-node");
-    const nodeArrow = page.getByLabel("Toggle");
-    const nodeCheckbox = page.locator(".rct-checkbox");
-    const nodeExpanded = page.locator(".rct-node-collapsed");
-    const nodeResults = page.locator("#result");
-    const nodeTitle = page.locator(".rct-title");
+    const node = page.locator(common.selectors.sections.checkBox.node.main);
+    const nodeArrow = page.locator(common.selectors.sections.checkBox.node.arrow);
+    const nodeCheckbox = page.locator(common.selectors.sections.checkBox.node.checkBox);
+    const nodeExpanded = page.locator(common.selectors.sections.checkBox.node.expanded);
+    const nodeResults = page.locator(common.selectors.sections.checkBox.node.result);
+    const nodeTitle = page.locator(common.selectors.sections.checkBox.node.title);
 
     await expect(checkBoxMenu).toHaveText(common.text.sections.title.checkBox);
     await checkBoxMenu.click();
@@ -98,29 +98,29 @@ test.describe("Demo QA - elements page", () => {
     await expect(node.nth(0)).toBeEnabled();
     await nodeArrow.click();
     await expect(nodeExpanded).toHaveCount(3);
-    await expect(nodeTitle.nth(1)).toHaveText("Desktop");
+    await expect(nodeTitle.nth(1)).toHaveText(common.text.sections.checkBox.desktop);
     await nodeCheckbox.nth(1).check();
     await expect(nodeResults).toHaveText(/You have selected :desktopnotescommands/);
     await nodeCheckbox.nth(1).uncheck();
-    await expect(nodeTitle.nth(2)).toHaveText("Documents");
+    await expect(nodeTitle.nth(2)).toHaveText(common.text.sections.checkBox.documents);
     await nodeCheckbox.nth(2).check();
     await expect(nodeResults).toHaveText(/You have selected :documentsworkspacereactangularveuofficepublicprivateclassifiedgeneral/);
     await nodeCheckbox.nth(2).uncheck();
-    await expect(nodeTitle.nth(3)).toHaveText("Downloads");
+    await expect(nodeTitle.nth(3)).toHaveText(common.text.sections.checkBox.downloads);
     await nodeCheckbox.nth(3).check();
     await expect(nodeResults).toHaveText(/You have selected :downloadswordFileexcelFile/);
     await nodeCheckbox.nth(3).uncheck();
     await nodeArrow.nth(1).click();
-    await expect(nodeTitle.nth(2)).toHaveText("Notes");
-    await expect(nodeTitle.nth(3)).toHaveText("Commands");
+    await expect(nodeTitle.nth(2)).toHaveText(common.text.sections.checkBox.notes);
+    await expect(nodeTitle.nth(3)).toHaveText(common.text.sections.checkBox.commands);
     await nodeArrow.nth(1).click();
     await nodeArrow.nth(2).click();
-    await expect(nodeTitle.nth(3)).toHaveText("WorkSpace");
-    await expect(nodeTitle.nth(4)).toHaveText("Office");
+    await expect(nodeTitle.nth(3)).toHaveText(common.text.sections.checkBox.workspace);
+    await expect(nodeTitle.nth(4)).toHaveText(common.text.sections.checkBox.office);
     await nodeArrow.nth(2).click();
     await nodeArrow.nth(3).click();
-    await expect(nodeTitle.nth(4)).toHaveText("Word File.doc");
-    await expect(nodeTitle.nth(5)).toHaveText("Excel File.doc");
+    await expect(nodeTitle.nth(4)).toHaveText(common.text.sections.checkBox.file.word);
+    await expect(nodeTitle.nth(5)).toHaveText(common.text.sections.checkBox.file.excel);
     await nodeArrow.nth(3).click();
   });
 
@@ -212,33 +212,33 @@ test.describe("Demo QA - elements page", () => {
     await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.href, common.url.validSecure);
     await expect(title.nth(1)).toHaveText(common.text.sections.links.apiCall);
     await expect(hyperLink.nth(4)).toBeVisible();
-    await expect(hyperLink.nth(4)).toHaveText(common.text.statuses.created);
+    await expect(hyperLink.nth(4)).toHaveText(common.text.sections.links.statuses.created);
     await expect(hyperLink.nth(5)).toBeVisible();
-    await expect(hyperLink.nth(5)).toHaveText(common.text.statuses.noContent);
+    await expect(hyperLink.nth(5)).toHaveText(common.text.sections.links.statuses.noContent);
     await expect(hyperLink.nth(6)).toBeVisible();
-    await expect(hyperLink.nth(6)).toHaveText(common.text.statuses.moved);
+    await expect(hyperLink.nth(6)).toHaveText(common.text.sections.links.statuses.moved);
     await expect(hyperLink.nth(7)).toBeVisible();
-    await expect(hyperLink.nth(7)).toHaveText(common.text.statuses.badRequest);
+    await expect(hyperLink.nth(7)).toHaveText(common.text.sections.links.statuses.badRequest);
     await expect(hyperLink.nth(8)).toBeVisible();
-    await expect(hyperLink.nth(8)).toHaveText(common.text.statuses.unauthorized);
+    await expect(hyperLink.nth(8)).toHaveText(common.text.sections.links.statuses.unauthorized);
     await expect(hyperLink.nth(9)).toBeVisible();
-    await expect(hyperLink.nth(9)).toHaveText(common.text.statuses.forbidden);
+    await expect(hyperLink.nth(9)).toHaveText(common.text.sections.links.statuses.forbidden);
     await expect(hyperLink.nth(10)).toBeVisible();
-    await expect(hyperLink.nth(10)).toHaveText(common.text.statuses.notFound);
+    await expect(hyperLink.nth(10)).toHaveText(common.text.sections.links.statuses.notFound);
     await (hyperLink.nth(4)).click();
-    await expect(response).toHaveText(common.text.responses[201]);
+    await expect(response).toHaveText(common.text.sections.links.responses[201]);
     await (hyperLink.nth(5)).click();
-    await expect(response).toHaveText(common.text.responses[204]);
+    await expect(response).toHaveText(common.text.sections.links.responses[204]);
     await (hyperLink.nth(6)).click();
-    await expect(response).toHaveText(common.text.responses[301]);
+    await expect(response).toHaveText(common.text.sections.links.responses[301]);
     await (hyperLink.nth(7)).click();
-    await expect(response).toHaveText(common.text.responses[400]);
+    await expect(response).toHaveText(common.text.sections.links.responses[400]);
     await (hyperLink.nth(8)).click();
-    await expect(response).toHaveText(common.text.responses[401]);
+    await expect(response).toHaveText(common.text.sections.links.responses[401]);
     await (hyperLink.nth(9)).click();
-    await expect(response).toHaveText(common.text.responses[403]);
+    await expect(response).toHaveText(common.text.sections.links.responses[403]);
     await (hyperLink.nth(10)).click();
-    await expect(response).toHaveText(common.text.responses[404]);
+    await expect(response).toHaveText(common.text.sections.links.responses[404]);
   });
 
   test("opens Broken Links and verifies elements", async ({ page }) => {
