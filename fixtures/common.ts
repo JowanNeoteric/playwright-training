@@ -34,6 +34,9 @@ export const common = {
 			},
 			links: {
 				response: "#linkResponse"
+			},
+			radioButton: {
+				singleControl: ".custom-control-inline"
 			}
 		},
 	},
@@ -109,12 +112,19 @@ export const common = {
 				}
 			},
 			radioButton: {
-
+				question: 'Do you like the site?',
+				answers: {
+					yes: "Yes",
+					impressive: "Impressive",
+					no: "No"
+				}
 			},
 			webTables: {
 
 			},
-			buttons: {},
+			buttons: {
+
+			},
 			links: {
 				home: "Home",
 				apiCall: "Following links will send an api call",

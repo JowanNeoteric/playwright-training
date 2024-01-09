@@ -125,18 +125,18 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Radio Button and verifies elements", async ({ page }) => {
-    const radioButtonMenu = page.getByText("Radio Button");
-    const singleRadioButton = page.locator(".custom-control-inline");
+    const radioButtonMenu = page.getByText(common.text.sections.title.radioButton);
+    const singleRadioButton = page.locator(common.selectors.sections.radioButton.singleControl);
 
-    await expect(radioButtonMenu).toHaveText("Radio Button");
+    await expect(radioButtonMenu).toHaveText(common.text.sections.title.radioButton);
     await radioButtonMenu.click();
-    await expect(page.getByText('Do you like the site?')).toBeVisible();
+    await expect(page.getByText(common.text.sections.radioButton.question)).toBeVisible();
     await expect(singleRadioButton.nth(0)).toBeVisible();
-    await expect(singleRadioButton.nth(0)).toHaveText("Yes");
+    await expect(singleRadioButton.nth(0)).toHaveText(common.text.sections.radioButton.answers.yes);
     await expect(singleRadioButton.nth(1)).toBeVisible();
-    await expect(singleRadioButton.nth(1)).toHaveText("Impressive");
+    await expect(singleRadioButton.nth(1)).toHaveText(common.text.sections.radioButton.answers.impressive);
     await expect(singleRadioButton.nth(2)).toBeVisible();
-    await expect(singleRadioButton.nth(2)).toHaveText("No");
+    await expect(singleRadioButton.nth(2)).toHaveText(common.text.sections.radioButton.answers.no);
     await expect(singleRadioButton.nth(2)).toHaveClass(/disabled/);
   });
 
