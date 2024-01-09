@@ -219,10 +219,10 @@ test.describe("Demo QA - elements page", () => {
     await expect(title.nth(0)).toHaveText("Following links will open new tab");
     await expect(hyperLink.nth(2)).toBeVisible();
     await expect(hyperLink.nth(2)).toHaveText("Home");
-    await expect(hyperLink.nth(2)).toHaveAttribute(common.attribute.href, common.url.valid);
+    await expect(hyperLink.nth(2)).toHaveAttribute(common.attribute.href, common.url.validSecure);
     await expect(hyperLink.nth(3)).toBeVisible();
     await expect(hyperLink.nth(3)).toHaveText("Home" && /.{5}/);
-    await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.href, common.url.valid);
+    await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.href, common.url.validSecure);
     await expect(title.nth(1)).toHaveText("Following links will send an api call");
     await expect(hyperLink.nth(4)).toBeVisible();
     await expect(hyperLink.nth(4)).toHaveText(common.text.statuses.created);

@@ -70,6 +70,7 @@ export const common = {
 	url: {
 		elements: "https://demoqa.com/elements",
 		valid: "http://demoqa.com",
+		validSecure: "https://demoqa.com",
 		invalid: "http://the-internet.herokuapp.com/status_codes/500",
 	}
 };
