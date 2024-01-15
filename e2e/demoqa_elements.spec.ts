@@ -157,10 +157,28 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Web Tables and verifies elements", async ({ page }) => {
-    const webTables = page.getByText(common.text.sections.title.webTables);
+    const webTablesMenu = page.getByText(common.text.sections.title.webTables);
+    const button = page.locator(common.selectors.generic.button);
+    const searchBox = page.locator(common.selectors.sections.webTables.searchBox);
+    const search = page.locator(common.selectors.sections.webTables.search);
+    const tableHeader = page.locator(common.selectors.sections.webTables.table.header);
 
-    await expect(webTables).toHaveText(common.text.sections.title.webTables);
-    await webTables.click();
+    await expect(webTablesMenu).toHaveText(common.text.sections.title.webTables);
+    await webTablesMenu.click();
+    await expect(button).toHaveText("Add");
+    await expect(searchBox).toHaveAttribute("autocomplete", "off");
+    await expect(searchBox).toHaveAttribute("placeholder", "Type to search");
+    await expect(searchBox).toBeEditable();
+    await expect(search).toBeVisible();
+    await expect(search).not.toHaveText("search");
+    await expect(tableHeader).toHaveCount(7);
+    await expect(tableHeader.nth(0)).toHaveText(common.text.sections.webTables.headers.firstName);
+    await expect(tableHeader.nth(1)).toHaveText(common.text.sections.webTables.headers.lastName);
+    await expect(tableHeader.nth(2)).toHaveText(common.text.sections.webTables.headers.age);
+    await expect(tableHeader.nth(3)).toHaveText(common.text.sections.webTables.headers.email);
+    await expect(tableHeader.nth(4)).toHaveText(common.text.sections.webTables.headers.salary);
+    await expect(tableHeader.nth(5)).toHaveText(common.text.sections.webTables.headers.department);
+    await expect(tableHeader.nth(6)).toHaveText(common.text.sections.webTables.headers.action);
   });
 
   test("opens Buttons and verifies elements", async ({ page }) => {
@@ -266,7 +284,6 @@ test.describe("Demo QA - elements page", () => {
     const uploadNDownloadMenu = page.getByText(common.text.sections.title.uploadNDownload);
     const downloadButton = page.locator(common.selectors.generic.button);
     const fileChooseButton = page.locator(common.selectors.buttons.fileChoose);
-
 
     await expect(uploadNDownloadMenu).toHaveText(common.text.sections.title.uploadNDownload);
     await uploadNDownloadMenu.click();

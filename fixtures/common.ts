@@ -7,7 +7,8 @@ export const common = {
 			img: "img",
 			h5: "h5",
 			button: '.btn-primary',
-			output: '#output'
+			output: '#output',
+			input: "input"
 		},
 		buttons: {
 			fileChoose: ".form-control-file"
@@ -43,6 +44,13 @@ export const common = {
 				double: "#doubleClickMessage",
 				right: "#rightClickMessage",
 				single: "#dynamicClickMessage"
+			},
+			webTables: {
+				searchBox: "#searchBox",
+				search: "#basic-addon2",
+				table: {
+					header: ".rt-th"
+				}
 			}
 		},
 	},
@@ -120,7 +128,15 @@ export const common = {
 				}
 			},
 			webTables: {
-
+				headers: {
+					firstName: "First Name",
+					lastName: "Last Name",
+					age: "Age",
+					email: "Email",
+					salary: "Salary",
+					department: "Department",
+					action: "Action"
+				},
 			},
 			buttons: {
 				click: {
