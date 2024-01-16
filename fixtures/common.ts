@@ -8,7 +8,8 @@ export const common = {
 			h5: "h5",
 			button: '.btn-primary',
 			output: '#output',
-			input: "input"
+			input: "input",
+			span: "span"
 		},
 		buttons: {
 			fileChoose: ".form-control-file"
@@ -49,7 +50,9 @@ export const common = {
 				searchBox: "#searchBox",
 				search: "#basic-addon2",
 				table: {
-					header: ".rt-th"
+					header: ".rt-th",
+					row: "row",
+					actionButtons: ".action-buttons"
 				}
 			}
 		},
@@ -65,6 +68,8 @@ export const common = {
 			placeholder: "placeholder"
 		},
 		value: {
+			edit: "edit-record-",
+			delete: "delete-record-",
 			search: "Type to search",
 			off: "off",
 			expand: "Expand all",
