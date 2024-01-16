@@ -55,12 +55,18 @@ export const common = {
 		},
 	},
 	attribute: {
-		type: "type",
-		id: "id",
-		href: "href",
-		src: "src",
-		title: "title",
+		name: {
+			type: "type",
+			id: "id",
+			href: "href",
+			src: "src",
+			title: "title",
+			autocomplete: "autocomplete",
+			placeholder: "placeholder"
+		},
 		value: {
+			search: "Type to search",
+			off: "off",
 			expand: "Expand all",
 			collapse: "Collapse all",
 			button: "button",

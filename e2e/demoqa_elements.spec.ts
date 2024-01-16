@@ -19,13 +19,13 @@ test.describe("Demo QA - elements page", () => {
     await textBoxMenu.click();
     await expect(page.locator(common.selectors.sections.textBox.username)).toHaveText(common.text.sections.textBox.fullName);
     await expect(page.getByPlaceholder(common.text.sections.textBox.fullName)).toBeEditable();
-    await expect(page.getByPlaceholder(common.text.sections.textBox.fullName)).toHaveAttribute(common.attribute.type, common.attribute.value.text)
+    await expect(page.getByPlaceholder(common.text.sections.textBox.fullName)).toHaveAttribute(common.attribute.name.type, common.attribute.value.text)
     await expect(page.locator(common.selectors.sections.textBox.email)).toHaveText(common.text.sections.textBox.email);
     await expect(page.getByPlaceholder(common.text.sections.textBox.exampleEmail)).toBeEditable();
-    await expect(page.getByPlaceholder(common.text.sections.textBox.exampleEmail)).toHaveAttribute(common.attribute.id, common.attribute.value.email)
+    await expect(page.getByPlaceholder(common.text.sections.textBox.exampleEmail)).toHaveAttribute(common.attribute.name.id, common.attribute.value.email)
     await expect(page.locator(common.selectors.sections.textBox.currentAddress)).toHaveText(common.text.sections.textBox.currentAddress);
     await expect(page.getByPlaceholder(common.text.sections.textBox.currentAddress)).toBeEditable();
-    await expect(page.getByPlaceholder(common.text.sections.textBox.currentAddress)).toHaveAttribute(common.attribute.id, common.attribute.value.currentAddress)
+    await expect(page.getByPlaceholder(common.text.sections.textBox.currentAddress)).toHaveAttribute(common.attribute.name.id, common.attribute.value.currentAddress)
     await expect(page.locator(common.selectors.sections.textBox.permanentAddress)).toHaveText(common.text.sections.textBox.permanentAddress);
     await expect(page.locator(common.selectors.generic.button)).toHaveText(common.text.sections.textBox.submit);
   });
@@ -67,7 +67,7 @@ test.describe("Demo QA - elements page", () => {
     await expect(node).toBeVisible();
     await expect(node.nth(0)).toBeEnabled();
     await expect(nodeArrow).toBeVisible();
-    await expect(nodeArrow).toHaveAttribute(common.attribute.type, common.attribute.value.button);
+    await expect(nodeArrow).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
     await expect(nodeCheckbox).toBeVisible();
     await nodeCheckbox.click();
     await expect(nodeResults).toBeVisible();
@@ -76,11 +76,11 @@ test.describe("Demo QA - elements page", () => {
     await expect(nodeTitle).toBeVisible();
     await expect(nodeTitle).toHaveText(common.text.sections.links.home);
     await expect(nodeExpandButton).toBeVisible();
-    await expect(nodeExpandButton).toHaveAttribute(common.attribute.type, common.attribute.value.button);
-    await expect(nodeExpandButton).toHaveAttribute(common.attribute.title, common.attribute.value.expand);
+    await expect(nodeExpandButton).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
+    await expect(nodeExpandButton).toHaveAttribute(common.attribute.name.title, common.attribute.value.expand);
     await expect(nodeCollapseButton).toBeVisible();
-    await expect(nodeCollapseButton).toHaveAttribute(common.attribute.type, common.attribute.value.button);
-    await expect(nodeCollapseButton).toHaveAttribute(common.attribute.title, common.attribute.value.collapse);
+    await expect(nodeCollapseButton).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
+    await expect(nodeCollapseButton).toHaveAttribute(common.attribute.name.title, common.attribute.value.collapse);
   });
 
   test("opens Check Box and triggers actions", async ({ page }) => {
@@ -166,8 +166,8 @@ test.describe("Demo QA - elements page", () => {
     await expect(webTablesMenu).toHaveText(common.text.sections.title.webTables);
     await webTablesMenu.click();
     await expect(button).toHaveText("Add");
-    await expect(searchBox).toHaveAttribute("autocomplete", "off");
-    await expect(searchBox).toHaveAttribute("placeholder", "Type to search");
+    await expect(searchBox).toHaveAttribute(common.attribute.name.autocomplete, common.attribute.value.off);
+    await expect(searchBox).toHaveAttribute(common.attribute.name.placeholder, common.attribute.value.search);
     await expect(searchBox).toBeEditable();
     await expect(search).toBeVisible();
     await expect(search).not.toHaveText("search");
@@ -189,13 +189,13 @@ test.describe("Demo QA - elements page", () => {
     await buttonsMenu.click();
     await expect(button.nth(0)).toBeVisible();
     await expect(button.nth(0)).toHaveText(common.text.sections.buttons.click.double);
-    await expect(button.nth(0)).toHaveAttribute(common.attribute.type, common.attribute.value.button);
+    await expect(button.nth(0)).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
     await expect(button.nth(1)).toBeVisible();
     await expect(button.nth(1)).toHaveText(common.text.sections.buttons.click.right);
-    await expect(button.nth(1)).toHaveAttribute(common.attribute.type, common.attribute.value.button);
+    await expect(button.nth(1)).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
     await expect(button.nth(2)).toBeVisible();
     await expect(button.nth(2)).toHaveText(common.text.sections.buttons.click.single);
-    await expect(button.nth(2)).toHaveAttribute(common.attribute.type, common.attribute.value.button);
+    await expect(button.nth(2)).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
   });
 
   test("opens Buttons and triggers actions", async ({ page }) => {
@@ -224,10 +224,10 @@ test.describe("Demo QA - elements page", () => {
     await expect(title.nth(0)).toHaveText(common.text.sections.links.newTab);
     await expect(hyperLink.nth(2)).toBeVisible();
     await expect(hyperLink.nth(2)).toHaveText(common.text.sections.links.home);
-    await expect(hyperLink.nth(2)).toHaveAttribute(common.attribute.href, common.url.validSecure);
+    await expect(hyperLink.nth(2)).toHaveAttribute(common.attribute.name.href, common.url.validSecure);
     await expect(hyperLink.nth(3)).toBeVisible();
     await expect(hyperLink.nth(3)).toHaveText(common.text.sections.links.home && /.{5}/);
-    await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.href, common.url.validSecure);
+    await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.name.href, common.url.validSecure);
     await expect(title.nth(1)).toHaveText(common.text.sections.links.apiCall);
     await expect(hyperLink.nth(4)).toBeVisible();
     await expect(hyperLink.nth(4)).toHaveText(common.text.sections.links.statuses.created);
@@ -269,15 +269,15 @@ test.describe("Demo QA - elements page", () => {
     await expect(brokenLinksMenu).toHaveText(common.text.sections.title.brokenLinksImages);
     await brokenLinksMenu.click();
     await expect(title.nth(0)).toHaveText(common.text.sections.brokenLinksImages.valid.image);
-    await expect(image.nth(2)).toHaveAttribute(common.attribute.src, common.path.image.valid);
+    await expect(image.nth(2)).toHaveAttribute(common.attribute.name.src, common.path.image.valid);
     await expect(title.nth(1)).toHaveText(common.text.sections.brokenLinksImages.broken.image);
-    await expect(image.nth(3)).toHaveAttribute(common.attribute.src, common.path.image.invalid);
+    await expect(image.nth(3)).toHaveAttribute(common.attribute.name.src, common.path.image.invalid);
     await expect(title.nth(2)).toHaveText(common.text.sections.brokenLinksImages.valid.link);
     await expect(hyperLink.nth(2)).toHaveText(common.text.sections.brokenLinksImages.valid.clickForEnter);
-    await expect(hyperLink.nth(2)).toHaveAttribute(common.attribute.href, common.url.valid);
+    await expect(hyperLink.nth(2)).toHaveAttribute(common.attribute.name.href, common.url.valid);
     await expect(title.nth(3)).toHaveText(common.text.sections.brokenLinksImages.broken.link);
     await expect(hyperLink.nth(3)).toHaveText(common.text.sections.brokenLinksImages.broken.clickForEnter);
-    await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.href, common.url.invalid);
+    await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.name.href, common.url.invalid);
   });
 
   test("opens Upload and Download and verifies elements", async ({ page }) => {
@@ -289,7 +289,7 @@ test.describe("Demo QA - elements page", () => {
     await uploadNDownloadMenu.click();
     await expect(downloadButton).toBeVisible();
     await expect(downloadButton).toHaveText(common.text.sections.uploadNDownload.download);
-    await expect(downloadButton).toHaveAttribute(common.attribute.href, common.attribute.value.fileHref);
+    await expect(downloadButton).toHaveAttribute(common.attribute.name.href, common.attribute.value.fileHref);
     await expect(page.locator(common.selectors.generic.label)).toHaveText(common.text.sections.uploadNDownload.fileSelect);
     await expect(fileChooseButton).toBeVisible();
   });
@@ -303,7 +303,7 @@ test.describe("Demo QA - elements page", () => {
     await dynamicPropertiesMenu.click();
     await expect(textWithDynamicId).toBeVisible();
     await expect(textWithDynamicId).toHaveText(common.text.sections.dynamicProperties.randomId);
-    await expect(textWithDynamicId).toHaveAttribute(common.attribute.id, /.{5}/);
+    await expect(textWithDynamicId).toHaveAttribute(common.attribute.name.id, /.{5}/);
     await expect(button.nth(0)).toBeVisible();
     await expect(button.nth(0)).toBeDisabled();
     await expect(button.nth(0)).toHaveText(common.text.sections.dynamicProperties.beEnabled);
