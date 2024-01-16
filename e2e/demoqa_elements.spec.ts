@@ -193,12 +193,12 @@ test.describe("Demo QA - elements page", () => {
 
     await expect(webTablesMenu).toHaveText(common.text.sections.title.webTables);
     await webTablesMenu.click();
-    await expect(button).toHaveText("Add");
+    await expect(button).toHaveText(common.text.sections.webTables.add);
     await expect(searchBox).toHaveAttribute(common.attribute.name.autocomplete, common.attribute.value.off);
     await expect(searchBox).toHaveAttribute(common.attribute.name.placeholder, common.attribute.value.search);
     await expect(searchBox).toBeEditable();
     await expect(search).toBeVisible();
-    await expect(search).not.toHaveText("search");
+    await expect(search).not.toHaveText(common.text.sections.webTables.search);
     await expect(tableHeader).toHaveCount(7);
     await expect(tableHeader.nth(0)).toHaveText(common.text.sections.webTables.headers.firstName);
     await expect(tableHeader.nth(1)).toHaveText(common.text.sections.webTables.headers.lastName);

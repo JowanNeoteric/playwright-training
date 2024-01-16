@@ -139,6 +139,8 @@ export const common = {
 				}
 			},
 			webTables: {
+				add: "Add",
+				search: "Search",
 				headers: {
 					firstName: "First Name",
 					lastName: "Last Name",
