@@ -202,6 +202,12 @@ test.describe("Demo QA - elements page", () => {
       await expect(paginationButtons[i]).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
       await expect(paginationButtons[i]).toBeDisabled();
     }
+    await expect(page.locator(".-pageInfo")).toHaveText("Page of 1");
+    await expect(page.locator(".-pageJump input")).toBeEditable();
+    await expect(page.locator(".-pageJump input")).toHaveValue("1");
+    await expect(page.locator(".-pageSizeOptions")).toBeEditable();
+    await expect(page.locator(".-pageSizeOptions")).toHaveText(/10 rows/);
+    await expect(page.locator("select option")).toHaveCount(6);
   }
   );
 
