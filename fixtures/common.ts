@@ -150,6 +150,35 @@ export const common = {
 					department: "Department",
 					action: "Action"
 				},
+				people: [
+					{
+						firstName: "Cierra",
+						lastName: "Vega",
+						age: "39",
+						email: "cierra@example.com",
+						salary: "10000",
+						department: "Insurance"
+					},
+					{
+						firstName: "Alden",
+						lastName: "Cantrell",
+						age: "45",
+						email: "alden@example.com",
+						salary: "12000",
+						department: "Compliance"
+					},
+					{
+						firstName: "Kierra",
+						lastName: "Gentry",
+						age: "29",
+						email: "kierra@example.com",
+						salary: "2000",
+						department: "Legal"
+					}],
+				button: {
+					next: "Next",
+					previous: "Previous"
+				}
 			},
 			buttons: {
 				click: {

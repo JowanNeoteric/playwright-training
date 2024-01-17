@@ -165,31 +165,8 @@ test.describe("Demo QA - elements page", () => {
     const tableHeader = page.locator(common.selectors.sections.webTables.table.header);
     const gridCell = page.getByRole("gridcell");
     const singleRow = page.getByRole("row");
-    const people = [
-      {
-        firstName: "Cierra",
-        lastName: "Vega",
-        age: "39",
-        email: "cierra@example.com",
-        salary: "10000",
-        department: "Insurance"
-      },
-      {
-        firstName: "Alden",
-        lastName: "Cantrell",
-        age: "45",
-        email: "alden@example.com",
-        salary: "12000",
-        department: "Compliance"
-      },
-      {
-        firstName: "Kierra",
-        lastName: "Gentry",
-        age: "29",
-        email: "kierra@example.com",
-        salary: "2000",
-        department: "Legal"
-      }];
+    const prevButton = page.getByText(common.text.sections.webTables.button.previous);
+    const nextButton = page.getByText(common.text.sections.webTables.button.next);
 
     await expect(webTablesMenu).toHaveText(common.text.sections.title.webTables);
     await webTablesMenu.click();
@@ -209,14 +186,21 @@ test.describe("Demo QA - elements page", () => {
     await expect(tableHeader.nth(6)).toHaveText(common.text.sections.webTables.headers.action);
     await expect(singleRow).toHaveCount(11);
     for (let i = 0; i < 3; i++) {
-      await expect(singleRow.nth(i + 1).locator(gridCell.nth(0))).toHaveText(people[i].firstName);
-      await expect(singleRow.nth(i + 1).locator(gridCell.nth(1))).toHaveText(people[i].lastName);
-      await expect(singleRow.nth(i + 1).locator(gridCell.nth(2))).toHaveText(people[i].age);
-      await expect(singleRow.nth(i + 1).locator(gridCell.nth(3))).toHaveText(people[i].email);
-      await expect(singleRow.nth(i + 1).locator(gridCell.nth(4))).toHaveText(people[i].salary);
-      await expect(singleRow.nth(i + 1).locator(gridCell.nth(5))).toHaveText(people[i].department);
+      await expect(singleRow.nth(i + 1).locator(gridCell.nth(0))).toHaveText(common.text.sections.webTables.people[i].firstName);
+      await expect(singleRow.nth(i + 1).locator(gridCell.nth(1))).toHaveText(common.text.sections.webTables.people[i].lastName);
+      await expect(singleRow.nth(i + 1).locator(gridCell.nth(2))).toHaveText(common.text.sections.webTables.people[i].age);
+      await expect(singleRow.nth(i + 1).locator(gridCell.nth(3))).toHaveText(common.text.sections.webTables.people[i].email);
+      await expect(singleRow.nth(i + 1).locator(gridCell.nth(4))).toHaveText(common.text.sections.webTables.people[i].salary);
+      await expect(singleRow.nth(i + 1).locator(gridCell.nth(5))).toHaveText(common.text.sections.webTables.people[i].department);
       await expect(singleRow.nth(i + 1).locator(common.selectors.sections.webTables.table.actionButtons).locator(common.selectors.generic.span).nth(0)).toHaveAttribute(common.attribute.name.id, common.attribute.value.edit && /[1-9]/);
       await expect(singleRow.nth(i + 1).locator(common.selectors.sections.webTables.table.actionButtons).locator(common.selectors.generic.span).nth(1)).toHaveAttribute(common.attribute.name.id, common.attribute.value.delete && /[1-9]/);
+    };
+
+    var paginationButtons = [prevButton, nextButton]
+    for (let i = 0; i < paginationButtons.length; i++) {
+      await expect(paginationButtons[i]).toBeVisible();
+      await expect(paginationButtons[i]).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
+      await expect(paginationButtons[i]).toBeDisabled();
     }
   }
   );
