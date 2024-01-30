@@ -1,7 +1,7 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import { common } from "../fixtures/common";
 import { demoPage } from "../POM/demoqa_generic";
-import { elementsPage } from "../POM/demoqa_elements";
+import { textBoxPage } from "../POM/elements/demoqa_textBox";
 
 test.beforeEach(async ({ page }) => {
   const elements = new demoPage(page);
@@ -15,32 +15,17 @@ test.describe("Demo QA - elements page", () => {
   });
 
   test("opens Text Box and verifies elements", async ({ page }) => {
-    const elements = new elementsPage(page);
+    const elements = new textBoxPage(page);
     await elements.openTextBoxMenu();
     await elements.verifyTextBoxPageElements();
   });
 
-  // test("opens Text Box and fills with test data", async ({ page }) => {
-  //   const textBoxMenu = page.getByText(common.text.sections.title.textBox);
-  //   const fullNameInput = page.getByPlaceholder(common.text.sections.textBox.fullName);
-  //   const userEmailInput = page.getByPlaceholder(common.text.sections.textBox.exampleEmail);
-  //   const userCurrentAddress = page.getByPlaceholder(common.text.sections.textBox.currentAddress);
-  //   const userPermanentAddress = page.locator(common.selectors.sections.textBox.permanentAddressInput);
-  //   const testOutput = page.locator(common.selectors.generic.output);
-
-  //   await textBoxMenu.click();
-  //   await fullNameInput.fill(common.input.test.name);
-  //   await expect(fullNameInput).toHaveValue(common.input.test.name);
-  //   await userEmailInput.fill(common.input.test.email);
-  //   await expect(userEmailInput).toHaveValue(common.input.test.email);
-  //   await userCurrentAddress.fill(common.input.test.address);
-  //   await expect(userCurrentAddress).toHaveValue(common.input.test.address);
-  //   await userPermanentAddress.fill(common.input.test.permanent);
-  //   await expect(userPermanentAddress).toHaveValue(common.input.test.permanent);
-  //   await expect(testOutput).toBeHidden();
-  //   await page.locator(common.selectors.generic.button).click();
-  //   await expect(testOutput).toBeVisible();
-  // });
+  test("opens Text Box and fills with test data", async ({ page }) => {
+    const elements = new textBoxPage(page);
+    await elements.openTextBoxMenu();
+    await elements.fillAllTextBoxInputs(common.input.test.name, common.input.test.email, common.input.test.address, common.input.test.permanent);
+    await elements.clickSubmitButton();
+  });
 
   // test("opens Check Box and verifies elements", async ({ page }) => {
   //   const checkBoxMenu = page.getByText(common.text.sections.title.checkBox);

@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test"
-import { common } from "../fixtures/common";
+import { common } from "../../fixtures/common";
 
-export class elementsPage {
+export class textBoxPage {
   readonly page: Page;
   readonly textBoxMenu: Locator;
   readonly userName: Locator;
@@ -15,6 +15,7 @@ export class elementsPage {
   readonly permanentAddress: Locator;
   readonly permanentAddressInput: Locator;
   readonly submitBtn: Locator;
+  readonly testOutput: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -28,6 +29,7 @@ export class elementsPage {
     this.permanentAddress = page.locator(common.selectors.sections.textBox.permanentAddress);
     this.permanentAddressInput = page.locator(common.selectors.sections.textBox.permanentAddressInput);
     this.submitBtn = page.locator(common.selectors.generic.button);
+    this.testOutput = page.locator(common.selectors.generic.output);
   }
 
   async openTextBoxMenu() {
@@ -51,23 +53,20 @@ export class elementsPage {
     await expect(this.submitBtn).toHaveText(common.text.sections.textBox.submit);
   }
 
-  // async fillLoginInputs(userName: string, password: string) {
-  //   await expect(this.loginInput).toBeVisible();
-  //   await this.loginInput.fill(userName);
-  //   await expect(this.passwordInput).toBeVisible();
-  //   await this.passwordInput.fill(password);
-  // }
+  async fillAllTextBoxInputs(testName: string, testEmail: string, testCurrentAddress: string, testPermanentAddress: string) {
+    await this.userNameInput.fill(testName);
+    await expect(this.userNameInput).toHaveValue(testName);
+    await this.userEmailInput.fill(testEmail);
+    await expect(this.userEmailInput).toHaveValue(testEmail);
+    await this.currentAddressInput.fill(testCurrentAddress);
+    await expect(this.currentAddressInput).toHaveValue(testCurrentAddress);
+    await this.permanentAddressInput.fill(testPermanentAddress);
+    await expect(this.permanentAddressInput).toHaveValue(testPermanentAddress);
+    await expect(this.testOutput).toBeHidden();
+  }
 
-  // async clickLoginButton() {
-  //   await expect(this.loginButton).toBeVisible();
-  //   await this.loginButton.click();
-  // }
-
-  // async verifyCorrectLogin() {
-  //   await expect(this.page).toHaveURL(/.*account/);
-  // }
-
-  // async isErrorLoginMessageDisplayed() {
-  //   await expect(this.loginErrorMessage).toBeVisible();
-  // }
+  async clickSubmitButton() {
+    await this.submitBtn.click();
+    await expect(this.testOutput).toBeVisible();
+  }
 }
