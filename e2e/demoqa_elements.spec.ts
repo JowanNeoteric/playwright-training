@@ -3,6 +3,7 @@ import { common } from "../fixtures/common";
 
 test.beforeEach(async ({ page }) => {
   await page.goto(common.url.elements);
+  await page.getByLabel("Consent").click();
 });
 
 test.describe("Demo QA - elements page", () => {
