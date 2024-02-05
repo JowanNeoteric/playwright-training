@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 import { common } from "../fixtures/common";
 import { demoPage } from "../POM/demoqa_generic";
 import { textBoxPage } from "../POM/elements/demoqa_textBox";
+import { radioButtonPage } from "../POM/elements/demoqa_radioButton";
 
 test.beforeEach(async ({ page }) => {
   const elements = new demoPage(page);
@@ -99,37 +100,17 @@ test.describe("Demo QA - elements page", () => {
   //   await nodeArrow.nth(3).click();
   // });
 
-  // test("opens Radio Button and verifies elements", async ({ page }) => {
-  //   const radioButtonMenu = page.getByText(common.text.sections.title.radioButton);
-  //   const singleRadioButton = page.locator(common.selectors.sections.radioButton.singleControl);
+  test("opens Radio Button and verifies elements", async ({ page }) => {
+    const elements = new radioButtonPage(page)
+    await elements.openRadioButtonMenu();
+    await elements.verifyRadioButtonPageElements();
+  });
 
-  //   await expect(radioButtonMenu).toHaveText(common.text.sections.title.radioButton);
-  //   await radioButtonMenu.click();
-  //   await expect(page.getByText(common.text.sections.radioButton.question)).toBeVisible();
-  //   await expect(singleRadioButton.nth(0)).toBeVisible();
-  //   await expect(singleRadioButton.nth(0)).toHaveText(common.text.sections.radioButton.answers.yes);
-  //   await expect(singleRadioButton.nth(1)).toBeVisible();
-  //   await expect(singleRadioButton.nth(1)).toHaveText(common.text.sections.radioButton.answers.impressive);
-  //   await expect(singleRadioButton.nth(2)).toBeVisible();
-  //   await expect(singleRadioButton.nth(2)).toHaveText(common.text.sections.radioButton.answers.no);
-  //   await expect(singleRadioButton.nth(2)).toHaveClass(/disabled/);
-  // });
-
-  // test("opens Radio Button and triggers action", async ({ page }) => {
-  //   const radioButtonMenu = page.getByText(common.text.sections.title.radioButton);
-  //   const singleRadioButton = page.locator(common.selectors.sections.radioButton.singleControl);
-  //   const text = page.locator(common.selectors.generic.p);
-  //   const result = page.locator(common.selectors.sections.radioButton.result);
-
-  //   await expect(radioButtonMenu).toHaveText(common.text.sections.title.radioButton);
-  //   await radioButtonMenu.click();
-  //   await singleRadioButton.nth(0).click();
-  //   await expect(text).toHaveText(/You have selected/);
-  //   await expect(result).toHaveText(common.text.sections.radioButton.answers.yes);
-  //   await singleRadioButton.nth(1).click();
-  //   await expect(text).toHaveText(/You have selected/);
-  //   await expect(result).toHaveText(common.text.sections.radioButton.answers.impressive);
-  // });
+  test("opens Radio Button and triggers action", async ({ page }) => {
+    const elements = new radioButtonPage(page)
+    await elements.openRadioButtonMenu();
+    await elements.executeAllRadioButtonsActions();
+  });
 
   // test("opens Web Tables and verifies elements", async ({ page }) => {
   //   const webTablesMenu = page.getByText(common.text.sections.title.webTables);
