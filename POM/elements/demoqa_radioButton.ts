@@ -1,6 +1,10 @@
 import { expect, Locator, Page } from "@playwright/test"
 import { common } from "../../fixtures/common";
 
+const answers = [
+  common.text.sections.radioButton.answers.yes, common.text.sections.radioButton.answers.impressive, common.text.sections.radioButton.answers.no
+]
+
 export class radioButtonPage {
   readonly page: Page;
   readonly radioButtonMenu: Locator;
@@ -27,21 +31,22 @@ export class radioButtonPage {
 
   async verifyRadioButtonPageElements() {
     await expect(this.pageQuestion).toBeVisible();
-    await expect(this.singleRadioButton.nth(0)).toBeVisible();
-    await expect(this.singleRadioButton.nth(0)).toHaveText(common.text.sections.radioButton.answers.yes);
-    await expect(this.singleRadioButton.nth(1)).toBeVisible();
-    await expect(this.singleRadioButton.nth(1)).toHaveText(common.text.sections.radioButton.answers.impressive);
-    await expect(this.singleRadioButton.nth(2)).toBeVisible();
-    await expect(this.singleRadioButton.nth(2)).toHaveText(common.text.sections.radioButton.answers.no);
-    await expect(this.singleRadioButton.nth(2)).toHaveClass(/disabled/);
+    for (let i = 0; i < 3; i++) {
+      await expect(this.singleRadioButton.nth(i)).toBeVisible();
+      await expect(this.singleRadioButton.nth(i)).toHaveText(answers[i]);
+    }
+    await this.isRadioButtonDisabled();
   }
 
   async executeAllRadioButtonsActions() {
-    await this.singleRadioButton.nth(0).click();
-    await expect(this.text).toHaveText(/You have selected/);
-    await expect(this.result).toHaveText(common.text.sections.radioButton.answers.yes);
-    await this.singleRadioButton.nth(1).click();
-    await expect(this.text).toHaveText(/You have selected/);
-    await expect(this.result).toHaveText(common.text.sections.radioButton.answers.impressive);
+    for (let i = 0; i < 2; i++) {
+      await this.singleRadioButton.nth(i).click();
+      await expect(this.text).toHaveText(/You have selected/);
+      await expect(this.result).toHaveText(answers[i]);
+    }
+  }
+
+  async isRadioButtonDisabled() {
+    await expect(this.singleRadioButton.nth(2)).toHaveClass(/disabled/);
   }
 }
