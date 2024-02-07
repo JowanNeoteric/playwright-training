@@ -3,11 +3,13 @@ import { common } from "../fixtures/common";
 import { demoPage } from "../POM/demoqa_generic";
 import { textBoxPage } from "../POM/elements/demoqa_textBox";
 import { radioButtonPage } from "../POM/elements/demoqa_radioButton";
+import { checkboxPage } from "../POM/elements/demoqa_checkbox";
 
 test.describe("Demo QA - elements page", () => {
   let demoPageQA: demoPage;
   let radioButton: radioButtonPage;
   let textBox: textBoxPage;
+  let checkBox: checkboxPage;
 
   test.beforeEach(async ({ page }) => {
     radioButton = new radioButtonPage(page)
@@ -31,46 +33,13 @@ test.describe("Demo QA - elements page", () => {
     await textBox.clickSubmitButton();
   });
 
-  // test("opens Check Box and verifies elements", async ({ page }) => {
-  //   const checkBoxMenu = page.getByText(common.text.sections.title.checkBox);
-  //   const node = page.locator(common.selectors.sections.checkBox.node.main);
-  //   const nodeArrow = page.locator(common.selectors.sections.checkBox.node.arrow);
-  //   const nodeCheckbox = page.locator(common.selectors.sections.checkBox.node.checkBox);
-  //   const nodeResults = page.locator(common.selectors.sections.checkBox.node.result);
-  //   const nodeTitle = page.locator(common.selectors.sections.checkBox.node.title);
-  //   const nodeExpandButton = page.locator(common.selectors.sections.checkBox.node.controls).nth(0)
-  //   const nodeCollapseButton = page.locator(common.selectors.sections.checkBox.node.controls).nth(1)
-
-  //   await expect(checkBoxMenu).toHaveText(common.text.sections.title.checkBox);
-  //   await checkBoxMenu.click();
-  //   await expect(node).toBeVisible();
-  //   await expect(node.nth(0)).toBeEnabled();
-  //   await expect(nodeArrow).toBeVisible();
-  //   await expect(nodeArrow).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
-  //   await expect(nodeCheckbox).toBeVisible();
-  //   await nodeCheckbox.click();
-  //   await expect(nodeResults).toBeVisible();
-  //   await expect(nodeResults).toHaveText(/You have selected/);
-  //   await expect(page.locator(common.selectors.sections.checkBox.node.icon)).toBeVisible();
-  //   await expect(nodeTitle).toBeVisible();
-  //   await expect(nodeTitle).toHaveText(common.text.sections.links.home);
-  //   await expect(nodeExpandButton).toBeVisible();
-  //   await expect(nodeExpandButton).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
-  //   await expect(nodeExpandButton).toHaveAttribute(common.attribute.name.title, common.attribute.value.expand);
-  //   await expect(nodeCollapseButton).toBeVisible();
-  //   await expect(nodeCollapseButton).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
-  //   await expect(nodeCollapseButton).toHaveAttribute(common.attribute.name.title, common.attribute.value.collapse);
-  // });
+  test("opens Check Box and verifies elements", async () => {
+    await checkBox.openCheckboxButtonMenu();
+    await checkBox.verifyCheckboxPageElements();
+    await checkBox.verifyCheckboxAttributes();
+  });
 
   // test("opens Check Box and triggers actions", async ({ page }) => {
-  //   const checkBoxMenu = page.getByText(common.text.sections.title.checkBox);
-  //   const node = page.locator(common.selectors.sections.checkBox.node.main);
-  //   const nodeArrow = page.locator(common.selectors.sections.checkBox.node.arrow);
-  //   const nodeCheckbox = page.locator(common.selectors.sections.checkBox.node.checkBox);
-  //   const nodeExpanded = page.locator(common.selectors.sections.checkBox.node.expanded);
-  //   const nodeResults = page.locator(common.selectors.sections.checkBox.node.result);
-  //   const nodeTitle = page.locator(common.selectors.sections.checkBox.node.title);
-
   //   await expect(checkBoxMenu).toHaveText(common.text.sections.title.checkBox);
   //   await checkBoxMenu.click();
   //   await expect(node).toBeVisible();

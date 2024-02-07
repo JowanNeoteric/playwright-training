@@ -1,12 +1,11 @@
 import { test, expect } from "@playwright/test";
 import { common } from "../fixtures/common";
 
-test.beforeEach(async ({ page }) => {
-  await page.goto(common.url.elements);
-  await page.getByLabel('Consent', { exact: true }).click();
-});
-
 test.describe("Demo QA - elements page", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(common.url.elements);
+    await page.getByLabel('Consent', { exact: true }).click();
+  });
 
   test('has title "DEMOQA" and proper body message', async ({ page }) => {
     await expect(page).toHaveTitle(common.text.demopage);
