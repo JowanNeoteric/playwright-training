@@ -4,28 +4,31 @@ import { demoPage } from "../POM/demoqa_generic";
 import { textBoxPage } from "../POM/elements/demoqa_textBox";
 import { radioButtonPage } from "../POM/elements/demoqa_radioButton";
 
-test.beforeEach(async ({ page }) => {
-  const elements = new demoPage(page);
-  await elements.visitDemoQA(common.url.elements);
-});
-
 test.describe("Demo QA - elements page", () => {
-  test('has title "DEMOQA" and proper body message', async ({ page }) => {
-    const elements = new demoPage(page);
-    elements.verifyTitleAndBodyMessage(common.text.demopage, common.text.welcomeMessage);
+  let demoPageQA: demoPage;
+  let radioButton: radioButtonPage;
+  let textBox: textBoxPage;
+
+  test.beforeEach(async ({ page }) => {
+    radioButton = new radioButtonPage(page)
+    textBox = new textBoxPage(page);
+    demoPageQA = new demoPage(page);
+    await demoPageQA.visitDemoQA(common.url.elements);
   });
 
-  test("opens Text Box and verifies elements", async ({ page }) => {
-    const elements = new textBoxPage(page);
-    await elements.openTextBoxMenu();
-    await elements.verifyTextBoxPageElements();
+  test('has title "DEMOQA" and proper body message', async () => {
+    await demoPageQA.verifyTitleAndBodyMessage(common.text.demopage, common.text.welcomeMessage);
   });
 
-  test("opens Text Box and fills with test data", async ({ page }) => {
-    const elements = new textBoxPage(page);
-    await elements.openTextBoxMenu();
-    await elements.fillAllTextBoxInputs(common.input.test.name, common.input.test.email, common.input.test.address, common.input.test.permanent);
-    await elements.clickSubmitButton();
+  test("opens Text Box and verifies elements", async () => {
+    await textBox.openTextBoxMenu();
+    await textBox.verifyTextBoxPageElements();
+  });
+
+  test("opens Text Box and fills with test data", async () => {
+    await textBox.openTextBoxMenu();
+    await textBox.fillAllTextBoxInputs(common.input.test.name, common.input.test.email, common.input.test.address, common.input.test.permanent);
+    await textBox.clickSubmitButton();
   });
 
   // test("opens Check Box and verifies elements", async ({ page }) => {
@@ -100,16 +103,14 @@ test.describe("Demo QA - elements page", () => {
   //   await nodeArrow.nth(3).click();
   // });
 
-  test("opens Radio Button and verifies elements", async ({ page }) => {
-    const elements = new radioButtonPage(page)
-    await elements.openRadioButtonMenu();
-    await elements.verifyRadioButtonPageElements();
+  test("opens Radio Button and verifies elements", async () => {
+    await radioButton.openRadioButtonMenu();
+    await radioButton.verifyRadioButtonPageElements();
   });
 
-  test("opens Radio Button and triggers action", async ({ page }) => {
-    const elements = new radioButtonPage(page)
-    await elements.openRadioButtonMenu();
-    await elements.executeAllRadioButtonsActions();
+  test("opens Radio Button and triggers action", async () => {
+    await radioButton.openRadioButtonMenu();
+    await radioButton.executeAllRadioButtonsActions();
   });
 
   // test("opens Web Tables and verifies elements", async ({ page }) => {

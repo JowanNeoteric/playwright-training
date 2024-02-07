@@ -1,10 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test"
 
 export class demoPage {
-  readonly page: Page;
-
-  constructor(page: Page) {
-    this.page = page;
+  constructor(private page: Page) {
   }
 
   async visitDemoQA(url: string,) {

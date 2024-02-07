@@ -2,7 +2,6 @@ import { expect, Locator, Page } from "@playwright/test"
 import { common } from "../../fixtures/common";
 
 export class textBoxPage {
-  readonly page: Page;
   readonly textBoxMenu: Locator;
   readonly userName: Locator;
   readonly userNameInput: Locator;
@@ -17,8 +16,7 @@ export class textBoxPage {
   readonly submitBtn: Locator;
   readonly testOutput: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
+  constructor(private page: Page) {
     this.textBoxMenu = page.getByText(common.text.sections.title.textBox);
     this.userName = page.locator(common.selectors.sections.textBox.username);
     this.userNameInput = page.getByPlaceholder(common.text.sections.textBox.fullName);

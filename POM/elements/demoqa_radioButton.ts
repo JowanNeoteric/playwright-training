@@ -6,15 +6,13 @@ const answers = [
 ]
 
 export class radioButtonPage {
-  readonly page: Page;
   readonly radioButtonMenu: Locator;
   readonly singleRadioButton: Locator;
   readonly pageQuestion: Locator;
   readonly text: Locator;
   readonly result: Locator;
 
-  constructor(page: Page) {
-    this.page = page;
+  constructor(private page: Page) {
     this.radioButtonMenu = page.getByText(common.text.sections.title.radioButton);
     this.singleRadioButton = page.locator(common.selectors.sections.radioButton.singleControl);
     this.pageQuestion = page.getByText(common.text.sections.radioButton.question);
