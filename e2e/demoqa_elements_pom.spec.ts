@@ -15,6 +15,7 @@ test.describe("Demo QA - elements page", () => {
     radioButton = new radioButtonPage(page)
     textBox = new textBoxPage(page);
     demoPageQA = new demoPage(page);
+
     await demoPageQA.visitDemoQA(common.url.elements);
   });
 
