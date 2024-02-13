@@ -5,6 +5,7 @@ import { textBoxPage } from "../POM/elements/demoqa_textBox";
 import { radioButtonPage } from "../POM/elements/demoqa_radioButton";
 import { checkboxPage } from "../POM/elements/demoqa_checkbox";
 import { dynamicPropertiesPage } from "../POM/elements/demoqa_dynamicProperties";
+import { uploadNDownloadPage } from "../POM/elements/demoqa_uploadDownload";
 
 test.describe("Demo QA - elements page", () => {
   let demoPageQA: demoPage;
@@ -12,12 +13,14 @@ test.describe("Demo QA - elements page", () => {
   let textBox: textBoxPage;
   let checkBox: checkboxPage;
   let dynamicProperties: dynamicPropertiesPage;
+  let uploadNDownload: uploadNDownloadPage;
 
   test.beforeEach(async ({ page }) => {
     dynamicProperties = new dynamicPropertiesPage(page);
     radioButton = new radioButtonPage(page);
     textBox = new textBoxPage(page);
     demoPageQA = new demoPage(page);
+    uploadNDownload = new uploadNDownloadPage(page);
 
     await demoPageQA.visitDemoQA(common.url.elements);
   });
@@ -239,19 +242,10 @@ test.describe("Demo QA - elements page", () => {
   //   await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.name.href, common.url.invalid);
   // });
 
-  // test("opens Upload and Download and verifies elements", async ({ page }) => {
-  //   const uploadNDownloadMenu = page.getByText(common.text.sections.title.uploadNDownload);
-  //   const downloadButton = page.locator(common.selectors.generic.button);
-  //   const fileChooseButton = page.locator(common.selectors.buttons.fileChoose);
-
-  //   await expect(uploadNDownloadMenu).toHaveText(common.text.sections.title.uploadNDownload);
-  //   await uploadNDownloadMenu.click();
-  //   await expect(downloadButton).toBeVisible();
-  //   await expect(downloadButton).toHaveText(common.text.sections.uploadNDownload.download);
-  //   await expect(downloadButton).toHaveAttribute(common.attribute.name.href, common.attribute.value.fileHref);
-  //   await expect(page.locator(common.selectors.generic.label)).toHaveText(common.text.sections.uploadNDownload.fileSelect);
-  //   await expect(fileChooseButton).toBeVisible();
-  // });
+  test("opens Upload and Download and verifies elements", async () => {
+    await uploadNDownload.openUploadAndDownloadMenu();
+    await uploadNDownload.verifyDynamicPropertiesElements();
+  });
 
   test("opens Dynamic Properties and verifies elements", async () => {
     await dynamicProperties.openDynamicPropertiesMenu();
