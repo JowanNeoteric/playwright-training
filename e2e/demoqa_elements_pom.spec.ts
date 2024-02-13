@@ -4,15 +4,18 @@ import { demoPage } from "../POM/demoqa_generic";
 import { textBoxPage } from "../POM/elements/demoqa_textBox";
 import { radioButtonPage } from "../POM/elements/demoqa_radioButton";
 import { checkboxPage } from "../POM/elements/demoqa_checkbox";
+import { dynamicPropertiesPage } from "../POM/elements/demoqa_dynamicProperties";
 
 test.describe("Demo QA - elements page", () => {
   let demoPageQA: demoPage;
   let radioButton: radioButtonPage;
   let textBox: textBoxPage;
   let checkBox: checkboxPage;
+  let dynamicProperties: dynamicPropertiesPage;
 
   test.beforeEach(async ({ page }) => {
-    radioButton = new radioButtonPage(page)
+    dynamicProperties = new dynamicPropertiesPage(page);
+    radioButton = new radioButtonPage(page);
     textBox = new textBoxPage(page);
     demoPageQA = new demoPage(page);
 
@@ -250,25 +253,9 @@ test.describe("Demo QA - elements page", () => {
   //   await expect(fileChooseButton).toBeVisible();
   // });
 
-  // test("opens Dynamic Properties and verifies elements", async ({ page }) => {
-  //   const dynamicPropertiesMenu = page.getByText(common.text.sections.title.dynamicProperties);
-  //   const textWithDynamicId = page.locator(common.selectors.generic.p);
-  //   const button = page.locator(common.selectors.generic.button);
-
-  //   await expect(dynamicPropertiesMenu).toHaveText(common.text.sections.title.dynamicProperties);
-  //   await dynamicPropertiesMenu.click();
-  //   await expect(textWithDynamicId).toBeVisible();
-  //   await expect(textWithDynamicId).toHaveText(common.text.sections.dynamicProperties.randomId);
-  //   await expect(textWithDynamicId).toHaveAttribute(common.attribute.name.id, /.{5}/);
-  //   await expect(button.nth(0)).toBeVisible();
-  //   await expect(button.nth(0)).toBeDisabled();
-  //   await expect(button.nth(0)).toHaveText(common.text.sections.dynamicProperties.beEnabled);
-  //   await expect(button.nth(1)).toBeVisible();
-  //   await expect(button.nth(1)).not.toHaveClass(common.className.redText);
-  //   await expect(button.nth(1)).toHaveText(common.text.sections.dynamicProperties.colorChange);
-  //   await expect(button.nth(2)).toBeHidden();
-  //   await expect(button.nth(2)).toBeVisible({ timeout: 7000 });
-  //   await expect(button.nth(2)).toHaveText(common.text.sections.dynamicProperties.timeVisibility);
-  //   await expect(button.nth(1)).toHaveClass(/text-danger/);
-  // });
+  test("opens Dynamic Properties and verifies elements", async () => {
+    await dynamicProperties.openDynamicPropertiesMenu();
+    await dynamicProperties.verifyDynamicTextId();
+    await dynamicProperties.verifyDynamicPropertiesElements();
+  });
 });
