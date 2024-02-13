@@ -6,6 +6,7 @@ import { radioButtonPage } from "../POM/elements/demoqa_radioButton";
 import { checkboxPage } from "../POM/elements/demoqa_checkbox";
 import { dynamicPropertiesPage } from "../POM/elements/demoqa_dynamicProperties";
 import { uploadNDownloadPage } from "../POM/elements/demoqa_uploadDownload";
+import { brokenLinksPage } from "../POM/elements/demoqa_brokenLinks";
 
 test.describe("Demo QA - elements page", () => {
   let demoPageQA: demoPage;
@@ -14,6 +15,7 @@ test.describe("Demo QA - elements page", () => {
   let checkBox: checkboxPage;
   let dynamicProperties: dynamicPropertiesPage;
   let uploadNDownload: uploadNDownloadPage;
+  let brokenLinks: brokenLinksPage;
 
   test.beforeEach(async ({ page }) => {
     dynamicProperties = new dynamicPropertiesPage(page);
@@ -21,6 +23,7 @@ test.describe("Demo QA - elements page", () => {
     textBox = new textBoxPage(page);
     demoPageQA = new demoPage(page);
     uploadNDownload = new uploadNDownloadPage(page);
+    brokenLinks = new brokenLinksPage(page);
 
     await demoPageQA.visitDemoQA(common.url.elements);
   });
@@ -221,26 +224,12 @@ test.describe("Demo QA - elements page", () => {
   //   await expect(response).toHaveText(common.text.sections.links.responses[404]);
   // });
 
-  // test("opens Broken Links and verifies elements", async ({ page }) => {
-  //   const brokenLinksMenu = page.getByText(common.text.sections.title.brokenLinksImages);
-  //   const title = page.locator(common.selectors.generic.p);
-  //   const hyperLink = page.locator(common.selectors.generic.a);
-  //   const image = page.locator(common.selectors.generic.img);
-
-
-  //   await expect(brokenLinksMenu).toHaveText(common.text.sections.title.brokenLinksImages);
-  //   await brokenLinksMenu.click();
-  //   await expect(title.nth(0)).toHaveText(common.text.sections.brokenLinksImages.valid.image);
-  //   await expect(image.nth(2)).toHaveAttribute(common.attribute.name.src, common.path.image.valid);
-  //   await expect(title.nth(1)).toHaveText(common.text.sections.brokenLinksImages.broken.image);
-  //   await expect(image.nth(3)).toHaveAttribute(common.attribute.name.src, common.path.image.invalid);
-  //   await expect(title.nth(2)).toHaveText(common.text.sections.brokenLinksImages.valid.link);
-  //   await expect(hyperLink.nth(2)).toHaveText(common.text.sections.brokenLinksImages.valid.clickForEnter);
-  //   await expect(hyperLink.nth(2)).toHaveAttribute(common.attribute.name.href, common.url.valid);
-  //   await expect(title.nth(3)).toHaveText(common.text.sections.brokenLinksImages.broken.link);
-  //   await expect(hyperLink.nth(3)).toHaveText(common.text.sections.brokenLinksImages.broken.clickForEnter);
-  //   await expect(hyperLink.nth(3)).toHaveAttribute(common.attribute.name.href, common.url.invalid);
-  // });
+  test("opens Broken Links and verifies elements", async () => {
+    await brokenLinks.openBrokenLinksMenu();
+    await brokenLinks.verifyTitleText();
+    await brokenLinks.verifyImageAttribute();
+    await brokenLinks.verifyLinkTextAndAttribute();
+  });
 
   test("opens Upload and Download and verifies elements", async () => {
     await uploadNDownload.openUploadAndDownloadMenu();
