@@ -7,6 +7,7 @@ import { checkboxPage } from "../POM/elements/demoqa_checkbox";
 import { dynamicPropertiesPage } from "../POM/elements/demoqa_dynamicProperties";
 import { uploadNDownloadPage } from "../POM/elements/demoqa_uploadDownload";
 import { brokenLinksPage } from "../POM/elements/demoqa_brokenLinks";
+import { buttonsPage } from "../POM/elements/demoqa_buttons";
 
 test.describe("Demo QA - elements page", () => {
   let demoPageQA: demoPage;
@@ -16,6 +17,7 @@ test.describe("Demo QA - elements page", () => {
   let dynamicProperties: dynamicPropertiesPage;
   let uploadNDownload: uploadNDownloadPage;
   let brokenLinks: brokenLinksPage;
+  let buttons: buttonsPage;
 
   test.beforeEach(async ({ page }) => {
     dynamicProperties = new dynamicPropertiesPage(page);
@@ -24,6 +26,7 @@ test.describe("Demo QA - elements page", () => {
     demoPageQA = new demoPage(page);
     uploadNDownload = new uploadNDownloadPage(page);
     brokenLinks = new brokenLinksPage(page);
+    buttons = new buttonsPage(page);
 
     await demoPageQA.visitDemoQA(common.url.elements);
   });
@@ -146,36 +149,16 @@ test.describe("Demo QA - elements page", () => {
   // }
   // );
 
-  // test("opens Buttons and verifies elements", async ({ page }) => {
-  //   const buttonsMenu = page.getByText(common.text.sections.title.buttons);
-  //   const button = page.locator(common.selectors.generic.button);
+  test("opens Buttons and verifies elements", async () => {
+    await buttons.openButtonsMenu();
+    await buttons.verifyButtonsLabels();
+    await buttons.verifyButtonsAttributes();
+  });
 
-  //   await expect(buttonsMenu).toHaveText(common.text.sections.title.buttons);
-  //   await buttonsMenu.click();
-  //   await expect(button.nth(0)).toBeVisible();
-  //   await expect(button.nth(0)).toHaveText(common.text.sections.buttons.click.double);
-  //   await expect(button.nth(0)).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
-  //   await expect(button.nth(1)).toBeVisible();
-  //   await expect(button.nth(1)).toHaveText(common.text.sections.buttons.click.right);
-  //   await expect(button.nth(1)).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
-  //   await expect(button.nth(2)).toBeVisible();
-  //   await expect(button.nth(2)).toHaveText(common.text.sections.buttons.click.single);
-  //   await expect(button.nth(2)).toHaveAttribute(common.attribute.name.type, common.attribute.value.button);
-  // });
-
-  // test("opens Buttons and triggers actions", async ({ page }) => {
-  //   const buttonsMenu = page.getByText(common.text.sections.title.buttons);
-  //   const button = page.locator(common.selectors.generic.button);
-
-  //   await expect(buttonsMenu).toHaveText(common.text.sections.title.buttons);
-  //   await buttonsMenu.click();
-  //   await button.nth(0).dblclick();
-  //   await expect(page.locator(common.selectors.sections.buttons.double)).toHaveText(common.text.sections.buttons.response.double);
-  //   await button.nth(1).click({ button: "right" });
-  //   await expect(page.locator(common.selectors.sections.buttons.right)).toHaveText(common.text.sections.buttons.response.right);
-  //   await button.nth(2).click();
-  //   await expect(page.locator(common.selectors.sections.buttons.single)).toHaveText(common.text.sections.buttons.response.single);
-  // });
+  test("opens Buttons and triggers actions", async () => {
+    await buttons.openButtonsMenu();
+    await buttons.verifyButtonsActions();
+  });
 
   // test("opens Links and verifies elements", async ({ page }) => {
   //   const linksMenu = page.getByText(common.text.sections.title.links, { exact: true });

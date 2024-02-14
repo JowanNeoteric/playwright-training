@@ -41,10 +41,13 @@ export const common = {
 				singleControl: ".custom-control-inline",
 				result: ".text-success"
 			},
-			buttons: {
-				double: "#doubleClickMessage",
-				right: "#rightClickMessage",
-				single: "#dynamicClickMessage"
+			buttons:
+			{
+				response: {
+					double: "#doubleClickMessage",
+					right: "#rightClickMessage",
+					single: "#dynamicClickMessage"
+				}
 			},
 			webTables: {
 				searchBox: "#searchBox",

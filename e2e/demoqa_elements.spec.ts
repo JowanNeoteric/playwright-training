@@ -235,11 +235,11 @@ test.describe("Demo QA - elements page", () => {
     await expect(buttonsMenu).toHaveText(common.text.sections.title.buttons);
     await buttonsMenu.click();
     await button.nth(0).dblclick();
-    await expect(page.locator(common.selectors.sections.buttons.double)).toHaveText(common.text.sections.buttons.response.double);
+    await expect(page.locator(common.selectors.sections.buttons.response.double)).toHaveText(common.text.sections.buttons.response.double);
     await button.nth(1).click({ button: "right" });
-    await expect(page.locator(common.selectors.sections.buttons.right)).toHaveText(common.text.sections.buttons.response.right);
+    await expect(page.locator(common.selectors.sections.buttons.response.right)).toHaveText(common.text.sections.buttons.response.right);
     await button.nth(2).click();
-    await expect(page.locator(common.selectors.sections.buttons.single)).toHaveText(common.text.sections.buttons.response.single);
+    await expect(page.locator(common.selectors.sections.buttons.response.single)).toHaveText(common.text.sections.buttons.response.single);
   });
 
   test("opens Links and verifies elements", async ({ page }) => {
