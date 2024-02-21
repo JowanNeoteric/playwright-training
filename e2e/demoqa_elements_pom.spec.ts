@@ -7,6 +7,7 @@ import { checkboxPage } from "../POM/elements/demoqa_checkbox";
 import { dynamicPropertiesPage } from "../POM/elements/demoqa_dynamicProperties";
 import { uploadNDownloadPage } from "../POM/elements/demoqa_uploadDownload";
 import { brokenLinksPage } from "../POM/elements/demoqa_brokenLinks";
+import { linksPage } from "../POM/elements/demoqa_links";
 import { buttonsPage } from "../POM/elements/demoqa_buttons";
 
 test.describe("Demo QA - elements page", () => {
@@ -18,6 +19,7 @@ test.describe("Demo QA - elements page", () => {
   let uploadNDownload: uploadNDownloadPage;
   let brokenLinks: brokenLinksPage;
   let buttons: buttonsPage;
+  let links: linksPage;
 
   test.beforeEach(async ({ page }) => {
     dynamicProperties = new dynamicPropertiesPage(page);
@@ -27,6 +29,7 @@ test.describe("Demo QA - elements page", () => {
     uploadNDownload = new uploadNDownloadPage(page);
     brokenLinks = new brokenLinksPage(page);
     buttons = new buttonsPage(page);
+    links = new linksPage(page);
 
     await demoPageQA.visitDemoQA(common.url.elements);
   });
@@ -71,6 +74,14 @@ test.describe("Demo QA - elements page", () => {
   test("opens Buttons and triggers actions", async () => {
     await buttons.openButtonsMenu();
     await buttons.verifyButtonsActions();
+  });
+
+  test("opens Links and verifies elements", async () => {
+    await links.openLinksMenu();
+    await links.isHyperLinkVisible();
+    await links.verifyTitleText();
+    await links.verifyHyperLinkLabel();
+    await links.verifyHyperLinkResponse();
   });
 
   test("opens Broken Links and verifies elements", async () => {
